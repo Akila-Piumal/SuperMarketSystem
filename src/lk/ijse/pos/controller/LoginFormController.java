@@ -19,7 +19,9 @@ public class LoginFormController {
         pwdPassword.visibleProperty().bind(cbShowPassword.selectedProperty().not());
     }
 
-    
+    public void abcd(){
+
+    }
     public void keyReleased(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             if (txtUserName.getText() != null) {
