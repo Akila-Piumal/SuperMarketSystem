@@ -1,9 +1,9 @@
-package lk.ijse.pos.bo.Custom;
+package lk.ijse.pos.dao.custom;
 
-import lk.ijse.pos.bo.SuperBO;
+import lk.ijse.pos.dao.SuperDAO;
 
 import java.sql.SQLException;
 
-public interface LoginBO extends SuperBO {
+public interface LoginDAO extends SuperDAO {
     boolean loginToSystem(String userName,String password) throws SQLException, ClassNotFoundException;
 }
