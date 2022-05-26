@@ -30,11 +30,11 @@ public class LoginFormController {
         }
     }
 
-    private void loginToSystem() {
-
+    public void btnLoginOnAction(ActionEvent actionEvent) {
+        loginToSystem();
     }
 
-    public void btnLoginOnAction(ActionEvent actionEvent) {
+    private void loginToSystem() {
 
     }
 }
