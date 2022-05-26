@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.controller.LoginFormController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1200.0" opacity="0.75" pickOnBounds="true">
+         <image>
+            <Image url="@assests/images/2011.i003.013_shopping%20bag%20basket%20zero%20waste%20eco%20illustration.jpg" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <AnchorPane layoutX="27.0" layoutY="28.0" prefHeight="744.0" prefWidth="537.0" style="-fx-background-color: #34495e; -fx-background-radius: 20;">
+         <children>
+            <ImageView fitHeight="123.0" fitWidth="130.0" layoutX="204.0" layoutY="28.0" pickOnBounds="true">
+               <image>
+                  <Image url="@assests/images/login.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="184.0" layoutY="151.0" text="LOG IN" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="50.0" />
+               </font></Label>
+            <JFXTextField fx:id="txtUserName" labelFloat="true" layoutX="61.0" layoutY="279.0" onKeyReleased="#keyReleased" prefHeight="63.0" prefWidth="415.0" promptText="User Name" unFocusColor="#221f1f">
+               <font>
+                  <Font name="Arial Bold" size="33.0" />
+               </font>
+               <effect>
+                  <ColorAdjust brightness="1.0" contrast="1.0" hue="1.0" saturation="1.0" />
+               </effect>
+            </JFXTextField>
+            <JFXPasswordField fx:id="pwdPassword" labelFloat="true" layoutX="58.0" layoutY="392.0" onKeyReleased="#keyReleased" prefHeight="60.0" prefWidth="423.0" promptText="Password">
+               <effect>
+                  <ColorAdjust brightness="1.0" contrast="1.0" hue="1.0" saturation="1.0" />
+               </effect>
+               <font>
+                  <Font name="Arial Bold" size="33.0" />
+               </font>
+            </JFXPasswordField>
+            <CheckBox fx:id="cbShowPassword" layoutX="61.0" layoutY="498.0" mnemonicParsing="false" text="Show Password" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </CheckBox>
+            <JFXTextField fx:id="txtPassword" layoutX="57.0" layoutY="392.0" prefHeight="60.0" prefWidth="423.0">
+               <font>
+                  <Font name="Arial Bold" size="33.0" />
+               </font>
+               <effect>
+                  <ColorAdjust brightness="1.0" contrast="1.0" hue="1.0" saturation="1.0" />
+               </effect>
+            </JFXTextField>
+            <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="149.0" layoutY="564.0" onAction="#btnLoginOnAction" prefHeight="46.0" prefWidth="239.0" ripplerFill="#dacfcf" style="-fx-background-color: white;" text="LOGIN" textAlignment="CENTER" textFill="#2c0606">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+         </children></AnchorPane>
+      <Line endX="1099.0" layoutX="101.0" startX="-100.0" />
+      <Label layoutX="641.0" layoutY="1.0" prefHeight="83.0" prefWidth="479.0" text="WELCOME" textFill="#e74c3c" textOverrun="CLIP">
+         <font>
+            <Font name="Baskerville Old Face" size="89.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
