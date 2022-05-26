@@ -3,14 +3,20 @@ package lk.ijse.pos.controller;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.Custom.LoginBO;
 import lk.ijse.pos.bo.SuperBO;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class LoginFormController {
@@ -18,6 +24,7 @@ public class LoginFormController {
     public JFXPasswordField pwdPassword;
     public CheckBox cbShowPassword;
     public JFXTextField txtPassword;
+    public AnchorPane loginFormContext;
 
     LoginBO loginBO = (LoginBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.LOGIN);
 
@@ -49,10 +56,14 @@ public class LoginFormController {
             if (loginBO.loginToSystem(txtUserName.getText(), pwdPassword.getText())) {
                 if (txtUserName.getText().equalsIgnoreCase("Cashier")){
                     //load cashier ui
-                    System.out.println("Cashier");
+                    Stage stage = (Stage) loginFormContext.getScene().getWindow();
+                    stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/CashierDashBoardForm.fxml"))));
+                    stage.show();
                 }else if (txtUserName.getText().equalsIgnoreCase("Admin")){
                     // load admin ui
-                    System.out.println("admin");
+                    Stage stage = (Stage) loginFormContext.getScene().getWindow();
+                    stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/AdminDashBoardForm.fxml"))));
+                    stage.show();
                 }
             }else{
                 new Alert(Alert.AlertType.ERROR,"Invalid User name or password.").show();
@@ -61,6 +72,8 @@ public class LoginFormController {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
