@@ -2,6 +2,7 @@ package lk.ijse.pos.controller;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Duration;
 import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.Custom.LoginBO;
 import lk.ijse.pos.bo.SuperBO;
@@ -29,11 +31,14 @@ public class LoginFormController {
     LoginBO loginBO = (LoginBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.LOGIN);
 
     public void initialize(){
-
-
         txtPassword.textProperty().bind(pwdPassword.textProperty());
         txtPassword.visibleProperty().bind(cbShowPassword.selectedProperty());
         pwdPassword.visibleProperty().bind(cbShowPassword.selectedProperty().not());
+
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(2000), loginFormContext);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
     }
 
     public void keyReleased(KeyEvent keyEvent) {

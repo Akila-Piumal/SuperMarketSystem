@@ -1,6 +1,7 @@
 package lk.ijse.pos.bo;
 
 import lk.ijse.pos.bo.Custom.impl.LoginBOImpl;
+import lk.ijse.pos.bo.Custom.impl.PlaceOrderBOImpl;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -17,13 +18,15 @@ public class BOFactory {
     }
 
     public enum BOTypes{
-        LOGIN
+        LOGIN,PLACEORDER
     }
 
     public SuperBO getBO(BOTypes types){
         switch (types){
             case LOGIN:
                 return new LoginBOImpl();
+            case PLACEORDER:
+                return new PlaceOrderBOImpl();
             default:
                 return null;
         }
