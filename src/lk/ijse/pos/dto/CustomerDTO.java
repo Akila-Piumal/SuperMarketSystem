@@ -1,6 +1,6 @@
-package lk.ijse.pos.entity;
+package lk.ijse.pos.dto;
 
-public class Customer {
+public class CustomerDTO {
     private String custID;
     private String custTitle;
     private String custName;
@@ -9,10 +9,10 @@ public class Customer {
     private String province;
     private String postalCode;
 
-    public Customer() {
+    public CustomerDTO() {
     }
 
-    public Customer(String custID, String custTitle, String custName, String custAddress, String city, String province, String postalCode) {
+    public CustomerDTO(String custID, String custTitle, String custName, String custAddress, String city, String province, String postalCode) {
         this.custID = custID;
         this.custTitle = custTitle;
         this.custName = custName;
@@ -80,7 +80,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
+        return "CustomerDTO{" +
                 "custID='" + custID + '\'' +
                 ", custTitle='" + custTitle + '\'' +
                 ", custName='" + custName + '\'' +

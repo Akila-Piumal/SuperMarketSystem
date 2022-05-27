@@ -1,4 +1,7 @@
 package lk.ijse.pos.dao.custom;
 
-public interface ItemDAO {
+import lk.ijse.pos.dao.CrudDAO;
+import lk.ijse.pos.entity.Item;
+
+public interface ItemDAO extends CrudDAO<Item,String> {
 }
