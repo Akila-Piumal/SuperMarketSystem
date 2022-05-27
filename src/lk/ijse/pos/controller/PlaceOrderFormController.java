@@ -10,6 +10,7 @@ import javafx.scene.control.TableView;
 import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.Custom.PlaceOrderBO;
 import lk.ijse.pos.dto.CustomerDTO;
+import lk.ijse.pos.dto.ItemDTO;
 import lk.ijse.pos.dto.OrderDetailsDTO;
 
 import java.sql.SQLException;
@@ -91,7 +92,16 @@ public class PlaceOrderFormController {
     }
 
     private void loadAllItemCodes() {
-
+        try {
+            ArrayList<ItemDTO> allItems = placeOrderBO.getAllItems();
+            for (ItemDTO item : allItems) {
+                cmbItemCode.getItems().add(item.getItemCode());
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to load item codes").show();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadAllCustomerIds() {

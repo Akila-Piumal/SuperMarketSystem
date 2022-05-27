@@ -1,15 +1,22 @@
 package lk.ijse.pos.dao.custom.impl;
 
+import lk.ijse.pos.dao.SQLUtil;
 import lk.ijse.pos.dao.custom.ItemDAO;
 import lk.ijse.pos.entity.Item;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ItemDAOImpl implements ItemDAO {
     @Override
     public ArrayList<Item> getAll() throws SQLException, ClassNotFoundException {
-        return null;
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT * FROM Item");
+        ArrayList<Item> items=new ArrayList<>();
+        while (resultSet.next()){
+            items.add(new Item(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getBigDecimal(4),resultSet.getInt(5)));
+        }
+        return items;
     }
 
     @Override
