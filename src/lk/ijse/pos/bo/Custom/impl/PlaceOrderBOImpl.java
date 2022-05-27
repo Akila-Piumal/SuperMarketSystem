@@ -29,4 +29,15 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
         }
         return allCustomers;
     }
+
+    @Override
+    public boolean checkCustomerIsAvailable(String id) throws SQLException, ClassNotFoundException {
+        return customerDAO.exist(id);
+    }
+
+    @Override
+    public CustomerDTO searchCustomer(String id) throws SQLException, ClassNotFoundException {
+        Customer customer = customerDAO.search(id);
+        return new CustomerDTO(customer.getCustID(),customer.getCustTitle(),customer.getCustName(),customer.getCustAddress(),customer.getCity(),customer.getProvince(),customer.getPostalCode());
+    }
 }

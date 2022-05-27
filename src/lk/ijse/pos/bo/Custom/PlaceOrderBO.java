@@ -10,4 +10,8 @@ public interface PlaceOrderBO extends SuperBO {
     String generateNewOrderID() throws SQLException, ClassNotFoundException;
 
     ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException;
+
+    boolean checkCustomerIsAvailable(String id) throws SQLException, ClassNotFoundException;
+
+    CustomerDTO searchCustomer(String id) throws SQLException, ClassNotFoundException;
 }
