@@ -55,4 +55,15 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
         }
         return allItems;
     }
+
+    @Override
+    public boolean checkItemIsAvailable(String code) throws SQLException, ClassNotFoundException {
+        return itemDAO.exist(code);
+    }
+
+    @Override
+    public ItemDTO searchItem(String code) throws SQLException, ClassNotFoundException {
+        Item item = itemDAO.search(code);
+        return new ItemDTO(item.getItemCode(),item.getDescription(),item.getPackSize(),item.getUnitPrice(),item.getQtyOnHand());
+    }
 }

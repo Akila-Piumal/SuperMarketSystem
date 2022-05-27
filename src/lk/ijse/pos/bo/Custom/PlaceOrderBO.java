@@ -17,4 +17,8 @@ public interface PlaceOrderBO extends SuperBO {
     CustomerDTO searchCustomer(String id) throws SQLException, ClassNotFoundException;
 
     ArrayList<ItemDTO> getAllItems() throws SQLException, ClassNotFoundException;
+
+    boolean checkItemIsAvailable(String code) throws SQLException, ClassNotFoundException;
+
+    ItemDTO searchItem(String code) throws SQLException, ClassNotFoundException;
 }

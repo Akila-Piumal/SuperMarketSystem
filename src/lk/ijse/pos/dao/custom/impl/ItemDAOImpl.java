@@ -40,12 +40,17 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public boolean exist(String s) throws SQLException, ClassNotFoundException {
-        return false;
+    public boolean exist(String code) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT itemCode from item WHERE itemCode=?", code);
+        return resultSet.next();
     }
 
     @Override
-    public Item search(String s) throws SQLException, ClassNotFoundException {
+    public Item search(String code) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT * FROM item WHERE ItemCode=?", code);
+        if (resultSet.next()){
+            return new Item(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getBigDecimal(4),resultSet.getInt(5));
+        }
         return null;
     }
 }

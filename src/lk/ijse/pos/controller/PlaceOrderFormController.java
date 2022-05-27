@@ -13,6 +13,7 @@ import lk.ijse.pos.dto.CustomerDTO;
 import lk.ijse.pos.dto.ItemDTO;
 import lk.ijse.pos.dto.OrderDetailsDTO;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -56,6 +57,12 @@ public class PlaceOrderFormController {
         txtPostalCode.setEditable(false);
         btnPlaceOrder.setDisable(true);
         btnAddToList.setDisable(true);
+        txtDescription.setEditable(false);
+        txtPackSize.setEditable(false);
+        txtQtyOnHand.setEditable(false);
+        txtUnitPrice.setEditable(false);
+        txtDiscount.setEditable(false);
+        txtQTY.setDisable(true);
 
         lblOrderID.setText(generateNewOrderID());
         lblDate.setText(LocalDate.now().toString());
@@ -87,6 +94,40 @@ public class PlaceOrderFormController {
                 }
             } else {
                 txtCustomerName.clear();
+            }
+        });
+
+        // ADD Listener to the Item code combo box
+        cmbItemCode.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue!=null){
+                btnAddToList.setDisable(false);
+                txtQTY.setDisable(false);
+                try {
+                    if (!placeOrderBO.checkItemIsAvailable(newValue+"")) {
+                        // if Item is not
+                        new Alert(Alert.AlertType.ERROR, "There is no item with itemCode " + newValue + "").show();
+                    }
+                    // if Item is available
+                    ItemDTO itemDTO = placeOrderBO.searchItem(newValue + "");
+                    txtDescription.setText(itemDTO.getDescription());
+                    txtPackSize.setText(itemDTO.getPackSize());
+                    txtUnitPrice.setText(itemDTO.getUnitPrice().toString());
+                    txtQtyOnHand.setText(String.valueOf(itemDTO.getQtyOnHand()));
+                    double discount = ((itemDTO.getUnitPrice().doubleValue())/100)*5;
+                    txtDiscount.setText(String.valueOf(discount));
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                txtDescription.clear();
+                txtPackSize.clear();
+                txtQtyOnHand.clear();
+                txtUnitPrice.clear();
+                txtDiscount.clear();
+                txtQTY.clear();
             }
         });
     }
