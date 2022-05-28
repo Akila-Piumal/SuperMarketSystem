@@ -20,8 +20,8 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public boolean save(Customer dto) throws SQLException, ClassNotFoundException {
-        return false;
+    public boolean save(Customer customer) throws SQLException, ClassNotFoundException {
+        return SQLUtil.executeUpdate("INSERT INTO Customer VALUES(?,?,?,?,?,?,?)",customer.getCustID(),customer.getCustTitle(),customer.getCustName(),customer.getCustAddress(),customer.getCity(),customer.getProvince(),customer.getPostalCode());
     }
 
     @Override
@@ -36,7 +36,14 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public String generateNewId() throws SQLException, ClassNotFoundException {
-        return null;
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT CustID FROM Customer ORDER BY CustID DESC LIMIT 1;");
+        if (resultSet.next()) {
+            String id = resultSet.getString("CustID");
+            int newCustomerId = Integer.parseInt(id.replace("C00-", "")) + 1;
+            return String.format("C00-%03d", newCustomerId);
+        } else {
+            return "C00-001";
+        }
     }
 
     @Override

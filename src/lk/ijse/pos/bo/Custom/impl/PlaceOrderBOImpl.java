@@ -66,4 +66,14 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
         Item item = itemDAO.search(code);
         return new ItemDTO(item.getItemCode(),item.getDescription(),item.getPackSize(),item.getUnitPrice(),item.getQtyOnHand());
     }
+
+    @Override
+    public boolean saveCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
+        return customerDAO.save(new Customer(customerDTO.getCustID(),customerDTO.getCustTitle(),customerDTO.getCustName(),customerDTO.getCustAddress(),customerDTO.getCity(),customerDTO.getProvince(),customerDTO.getPostalCode()));
+    }
+
+    @Override
+    public String generateNewCustomerID() throws SQLException, ClassNotFoundException {
+        return customerDAO.generateNewId();
+    }
 }

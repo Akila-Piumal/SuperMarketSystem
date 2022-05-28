@@ -67,6 +67,8 @@ public class PlaceOrderFormController {
                 cmbItemCode.getSelectionModel().clearSelection();
                 if (tblOrderDetails.getItems().isEmpty()) {
                     btnPlaceOrder.setDisable(true);
+                    btnNewCustomer.setDisable(false);
+                    cmbCustomerID.setDisable(false);
                 }
                 calculateTotal();
                 calculateDiscount();
@@ -99,6 +101,7 @@ public class PlaceOrderFormController {
         //ADD Listener to the Customer ID combo box
         cmbCustomerID.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
+                btnNewCustomer.setText("+New Customer");
                 try {
                     if (!placeOrderBO.checkCustomerIsAvailable(newValue + "")) {
                         // if Customer is not
@@ -202,7 +205,6 @@ public class PlaceOrderFormController {
     }
 
     private String generateNewOrderID() {
-
         try {
             return placeOrderBO.generateNewOrderID();
         } catch (SQLException e) {
@@ -214,8 +216,44 @@ public class PlaceOrderFormController {
     }
 
     public void btnNewCustomerOnAction(ActionEvent actionEvent) {
+        txtCustomerName.setEditable(true);
+        txtCustomerTitle.setEditable(true);
+        txtCustomerAddress.setEditable(true);
+        txtCity.setEditable(true);
+        txtProvince.setEditable(true);
+        txtPostalCode.setEditable(true);
         txtCustomerName.requestFocus();
-        btnNewCustomer.setText("Add");
+
+        if (btnNewCustomer.getText().equalsIgnoreCase("Add")) {
+            try {
+                String newCustomerID = generateNewCustomerID();
+                if (placeOrderBO.saveCustomer(new CustomerDTO(newCustomerID, txtCustomerTitle.getText(), txtCustomerName.getText(), txtCustomerAddress.getText(), txtCity.getText(), txtProvince.getText(), txtPostalCode.getText()))) {
+                    cmbCustomerID.getItems().clear();
+                    loadAllCustomerIds();
+                    cmbCustomerID.setValue(newCustomerID);
+                    btnNewCustomer.setText("+New Customer");
+                    cmbItemCode.requestFocus();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            cmbCustomerID.getSelectionModel().clearSelection();
+            txtCustomerName.clear();
+            txtCustomerTitle.clear();
+            txtCustomerAddress.clear();
+            txtCity.clear();
+            txtProvince.clear();
+            txtPostalCode.clear();
+            btnNewCustomer.setText("Add");
+        }
+
+    }
+
+    private String generateNewCustomerID() throws SQLException, ClassNotFoundException {
+        return placeOrderBO.generateNewCustomerID();
     }
 
     public void btnAddToListOnAction(ActionEvent actionEvent) {
@@ -237,7 +275,7 @@ public class PlaceOrderFormController {
             if (btnAddToList.getText().equalsIgnoreCase("Update")) {
                 orderDetailsTM.setQty(qty);
                 orderDetailsTM.setTotal(totalForOneItem);
-                orderDetailsTM.setDiscount(Double.parseDouble(txtDiscount.getText())*Integer.parseInt(txtQTY.getText()));
+                orderDetailsTM.setDiscount(Double.parseDouble(txtDiscount.getText()) * Integer.parseInt(txtQTY.getText()));
                 tblOrderDetails.getSelectionModel().clearSelection();
             } else {
                 orderDetailsTM.setQty(orderDetailsTM.getQty() + qty);
@@ -257,6 +295,8 @@ public class PlaceOrderFormController {
         calculateTotal();
         calculateDiscount();
         calculateFullTotal();
+        btnNewCustomer.setDisable(true);
+        cmbCustomerID.setDisable(true);
     }
 
     private void calculateFullTotal() {
