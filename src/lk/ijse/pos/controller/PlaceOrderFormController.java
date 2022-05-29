@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -338,16 +337,33 @@ public class PlaceOrderFormController {
         }
 
         lblOrderID.setText(generateNewOrderID());
+
+        clearAll();
+    }
+
+    private void clearAll(){
         cmbCustomerID.getSelectionModel().clearSelection();
         cmbItemCode.getSelectionModel().clearSelection();
         tblOrderDetails.getItems().clear();
         txtQTY.clear();
+        cmbCustomerID.setDisable(false);
+        cmbCustomerID.requestFocus();
+        txtCustomerAddress.clear();
+        txtCustomerTitle.clear();
+        txtCity.clear();
+        txtProvince.clear();
+        txtPostalCode.clear();
+        btnNewCustomer.setDisable(false);
+        btnAddToList.setDisable(true);
+        btnPlaceOrder.setDisable(true);
         calculateTotal();
+        calculateDiscount();
+        calculateFullTotal();
     }
 
     private boolean saveOrder(String orderID, LocalDate date, String customerID, List<OrderDetailsDTO> orderDetails) {
         try {
-            return placeOrderBO.placeOrder(new OrderDTO(orderID,date,customerID,orderDetails));
+            return placeOrderBO.placeOrder(new OrderDTO(orderID, date, customerID, orderDetails));
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(e);
@@ -358,5 +374,10 @@ public class PlaceOrderFormController {
     }
 
     public void btnCancelOrderOnAction(ActionEvent actionEvent) {
+        Alert alert=new Alert(Alert.AlertType.WARNING,"Are you sure to cancel order !",ButtonType.YES,ButtonType.NO);
+        Optional<ButtonType> buttonType = alert.showAndWait();
+        if (buttonType.get().equals(ButtonType.YES)){
+            clearAll();
+        }
     }
 }
