@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -19,8 +20,10 @@ import javafx.stage.Window;
 import javafx.util.Duration;
 import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.Custom.ManageOrderBO;
+import lk.ijse.pos.dto.CustomDTO;
 import lk.ijse.pos.dto.CustomerDTO;
 import lk.ijse.pos.dto.OrderDTO;
+import lk.ijse.pos.view.tdm.OrderDetailsTM;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -35,7 +38,7 @@ public class ManageOrdersFormController {
     public JFXTextField txtQtyOnHand;
     public JFXTextField txtQTY;
     public JFXTextField txtDiscount;
-    public TableView tblOrderDetails;
+    public TableView<OrderDetailsTM> tblOrderDetails;
     public JFXTextField txtItemCode;
     public Label lblPrice;
     public Label lblDiscount;
@@ -52,8 +55,14 @@ public class ManageOrdersFormController {
         fadeIn.setToValue(1.0);
         fadeIn.play();
 
+        tblOrderDetails.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("itemCode"));
+        tblOrderDetails.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("description"));
+        tblOrderDetails.getColumns().get(2).setCellValueFactory(new PropertyValueFactory("unitPrice"));
+        tblOrderDetails.getColumns().get(3).setCellValueFactory(new PropertyValueFactory("qty"));
+
         txtSearchOrders.setDisable(true);
         btnSearch.setDisable(true);
+        cmbOrderID.setDisable(true);
 
         loadAllCustomerIDS();
 
@@ -62,6 +71,7 @@ public class ManageOrdersFormController {
             cmbOrderID.getItems().clear();
             txtSearchOrders.setDisable(false);
             btnSearch.setDisable(false);
+            cmbOrderID.setDisable(false);
 
             try {
                 ArrayList<OrderDTO> eachCustomerOrders = getOrdersForEachCustomer(selectedCustomerID);
@@ -76,10 +86,26 @@ public class ManageOrdersFormController {
         });
 
         // add listener to OrderID combo box
-        cmbOrderID.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-
+        cmbOrderID.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, selectedOrderID) -> {
+            tblOrderDetails.getItems().clear();
+            setTableData(selectedOrderID);
         });
     }
+
+    private void setTableData(String selectedOrderID) {
+        try {
+            ArrayList<CustomDTO> orderDetails = manageOrderBO.getOrderDetails(selectedOrderID);
+            for (CustomDTO orderDetail : orderDetails) {
+                tblOrderDetails.getItems().add(new OrderDetailsTM(orderDetail.getItemCode(),orderDetail.getDescription(),orderDetail.getUnitPrice(),orderDetail.getQty()));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private ArrayList<OrderDTO> getOrdersForEachCustomer(String custID) throws SQLException, ClassNotFoundException {
         ArrayList<OrderDTO> eachCustomerOrders = manageOrderBO.getEachCustomerOrders(custID);

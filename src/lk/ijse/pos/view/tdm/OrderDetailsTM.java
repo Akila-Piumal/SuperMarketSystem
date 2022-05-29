@@ -24,6 +24,13 @@ public class OrderDetailsTM {
         this.total = total;
     }
 
+    public OrderDetailsTM(String itemCode, String description, BigDecimal unitPrice, int qty) {
+        this.itemCode = itemCode;
+        this.description = description;
+        this.unitPrice = unitPrice;
+        this.qty = qty;
+    }
+
     public String getItemCode() {
         return itemCode;
     }

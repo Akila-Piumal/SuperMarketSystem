@@ -78,9 +78,8 @@
             <TableColumn prefWidth="177.0" text="Code" />
             <TableColumn minWidth="0.0" prefWidth="289.0" text="Description" />
             <TableColumn prefWidth="168.0" text="Unit Price" />
-            <TableColumn prefWidth="174.0" text="QTY" />
-            <TableColumn prefWidth="159.0" text="Total" />
-            <TableColumn prefWidth="166.0" text="Remove" />
+            <TableColumn prefWidth="269.0" text="QTY" />
+            <TableColumn prefWidth="230.0" text="Remove" />
          </columns>
       </TableView>
       <JFXButton buttonType="RAISED" layoutX="1076.0" layoutY="197.0" onAction="#btnUpdateItemDetailsOnAction" style="-fx-background-color: #12CBC4;" text="Update" textFill="WHITE">
