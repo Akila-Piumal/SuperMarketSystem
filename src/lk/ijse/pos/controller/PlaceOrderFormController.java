@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -11,13 +12,17 @@ import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.Custom.PlaceOrderBO;
 import lk.ijse.pos.dto.CustomerDTO;
 import lk.ijse.pos.dto.ItemDTO;
+import lk.ijse.pos.dto.OrderDTO;
+import lk.ijse.pos.dto.OrderDetailsDTO;
 import lk.ijse.pos.view.tdm.OrderDetailsTM;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class PlaceOrderFormController {
     public JFXComboBox<String> cmbCustomerID;
@@ -324,6 +329,32 @@ public class PlaceOrderFormController {
     }
 
     public void btnPlaceOrderOnAction(ActionEvent actionEvent) {
+        boolean result = saveOrder(lblOrderID.getText(), LocalDate.now(), cmbCustomerID.getValue(),
+                tblOrderDetails.getItems().stream().map(tm -> new OrderDetailsDTO(lblOrderID.getText(), tm.getItemCode(), tm.getQty(), tm.getDiscount())).collect(Collectors.toList()));
+        if (result) {
+            new Alert(Alert.AlertType.INFORMATION, "Order has been placed successfully").show();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Order has not been placed successfully").show();
+        }
+
+        lblOrderID.setText(generateNewOrderID());
+        cmbCustomerID.getSelectionModel().clearSelection();
+        cmbItemCode.getSelectionModel().clearSelection();
+        tblOrderDetails.getItems().clear();
+        txtQTY.clear();
+        calculateTotal();
+    }
+
+    private boolean saveOrder(String orderID, LocalDate date, String customerID, List<OrderDetailsDTO> orderDetails) {
+        try {
+            return placeOrderBO.placeOrder(new OrderDTO(orderID,date,customerID,orderDetails));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public void btnCancelOrderOnAction(ActionEvent actionEvent) {

@@ -6,11 +6,18 @@ import lk.ijse.pos.dao.SuperDAO;
 import lk.ijse.pos.dao.custom.CustomerDAO;
 import lk.ijse.pos.dao.custom.ItemDAO;
 import lk.ijse.pos.dao.custom.OrderDAO;
+import lk.ijse.pos.dao.custom.OrderDetailDAO;
+import lk.ijse.pos.db.DBConnection;
 import lk.ijse.pos.dto.CustomerDTO;
 import lk.ijse.pos.dto.ItemDTO;
+import lk.ijse.pos.dto.OrderDTO;
+import lk.ijse.pos.dto.OrderDetailsDTO;
 import lk.ijse.pos.entity.Customer;
 import lk.ijse.pos.entity.Item;
+import lk.ijse.pos.entity.OrderDetail;
+import lk.ijse.pos.entity.Orders;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -19,7 +26,7 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
     private final OrderDAO orderDAO = (OrderDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDER);
     private final CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
     private final ItemDAO itemDAO = (ItemDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
-
+    private final OrderDetailDAO orderDetailDAO = (OrderDetailDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDERDETAIL);
     @Override
     public String generateNewOrderID() throws SQLException, ClassNotFoundException {
         return orderDAO.generateNewId();
@@ -75,5 +82,49 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
     @Override
     public String generateNewCustomerID() throws SQLException, ClassNotFoundException {
         return customerDAO.generateNewId();
+    }
+
+    @Override
+    public boolean placeOrder(OrderDTO orderDTO) throws SQLException, ClassNotFoundException {
+        // Transaction
+        Connection connection = DBConnection.getDbConnection().getConnection();
+
+        if (orderDAO.exist(orderDTO.getOrderId())) {
+            // if order id is exists
+        }
+
+        connection.setAutoCommit(false);
+        boolean save = orderDAO.save(new Orders(orderDTO.getOrderId(), orderDTO.getOrderDate(), orderDTO.getCustomerId()));
+
+        if (!save) {
+            connection.rollback();
+            connection.setAutoCommit(true);
+            return false;
+        }
+
+        for (OrderDetailsDTO detailDTO : orderDTO.getOrderDetails()) {
+            boolean save1 = orderDetailDAO.save(new OrderDetail(detailDTO.getOrderID(), detailDTO.getItemCode(), detailDTO.getQty(), detailDTO.getDiscount()));
+
+            if (!save1) {
+                connection.rollback();
+                connection.setAutoCommit(true);
+                return false;
+            }
+
+            ItemDTO item = searchItem(detailDTO.getItemCode());
+            item.setQtyOnHand(item.getQtyOnHand() - detailDTO.getQty());
+
+            //update item
+            boolean update = itemDAO.update(new Item(item.getItemCode(), item.getDescription(),item.getPackSize(),item.getUnitPrice(),item.getQtyOnHand()));
+
+            if (!update) {
+                connection.rollback();
+                connection.setAutoCommit(true);
+                return false;
+            }
+        }
+        connection.commit();
+        connection.setAutoCommit(true);
+        return true;
     }
 }
