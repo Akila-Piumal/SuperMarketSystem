@@ -17,5 +17,10 @@
             <Font name="System Bold" size="50.0" />
          </font>
       </Button>
+      <Button layoutX="581.0" layoutY="347.0" mnemonicParsing="false" onAction="#btnManageOrdersOnAction" text="Manage Orders">
+         <font>
+            <Font name="System Bold" size="50.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
