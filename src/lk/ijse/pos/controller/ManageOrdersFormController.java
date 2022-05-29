@@ -7,6 +7,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.pos.bo.BOFactory;
+import lk.ijse.pos.bo.Custom.ManageOrderBO;
+import lk.ijse.pos.bo.SuperBO;
+import lk.ijse.pos.dto.CustomerDTO;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ManageOrdersFormController {
     public JFXComboBox<String> cmbOrderID;
@@ -23,12 +30,23 @@ public class ManageOrdersFormController {
     public Label lblDiscount;
     public Label lblTotalPrice;
 
+    ManageOrderBO manageOrderBO = (ManageOrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.MANAGEORDER);
+
     public void initialize(){
         loadAllCustomerIDS();
     }
 
     private void loadAllCustomerIDS() {
-
+        try {
+            ArrayList<CustomerDTO> allCustomers = manageOrderBO.getAllCustomers();
+            for (CustomerDTO dto : allCustomers) {
+                cmbSelectCustomer.getItems().add(dto.getCustID());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void backToHomeOnAction(MouseEvent mouseEvent) {
