@@ -6,6 +6,7 @@ import lk.ijse.pos.entity.Orders;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class OrderDAOImpl implements OrderDAO {
@@ -46,5 +47,15 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public Orders search(String s) throws SQLException, ClassNotFoundException {
         return null;
+    }
+
+    @Override
+    public ArrayList<Orders> getFromCustomerID(String custID) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT * FROM orders WHERE CustID=?", custID);
+        ArrayList<Orders> orders=new ArrayList<>();
+        while (resultSet.next()){
+            orders.add(new Orders(resultSet.getString(1), LocalDate.parse(resultSet.getString(2)),resultSet.getString(3)));
+        }
+        return orders;
     }
 }

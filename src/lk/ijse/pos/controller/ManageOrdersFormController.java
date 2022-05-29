@@ -11,6 +11,7 @@ import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.Custom.ManageOrderBO;
 import lk.ijse.pos.bo.SuperBO;
 import lk.ijse.pos.dto.CustomerDTO;
+import lk.ijse.pos.dto.OrderDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,6 +35,25 @@ public class ManageOrdersFormController {
 
     public void initialize(){
         loadAllCustomerIDS();
+
+        cmbSelectCustomer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, selectedCustomerID) -> {
+            cmbOrderID.getItems().clear();
+            loadOrderIDSForEachCustomer(selectedCustomerID);
+        });
+
+    }
+
+    private void loadOrderIDSForEachCustomer(String custID) {
+        try {
+            ArrayList<OrderDTO> eachCustomerOrders = manageOrderBO.getEachCustomerOrders(custID);
+            for (OrderDTO eachCustomerOrder : eachCustomerOrders) {
+                cmbOrderID.getItems().add(eachCustomerOrder.getOrderId());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadAllCustomerIDS() {

@@ -17,7 +17,7 @@
 
 <AnchorPane id="ancherPhane" prefHeight="800.0" prefWidth="1200.0" stylesheets="@assests/styles/manageOrderForm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.controller.ManageOrdersFormController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="281.0" layoutX="876.0" layoutY="5.0" stroke="WHITE" strokeType="INSIDE" width="321.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="282.0" layoutX="881.0" layoutY="-7.0" stroke="WHITE" strokeType="INSIDE" width="324.0">
          <fill>
             <LinearGradient endX="1.0" endY="0.7135922330097088" startX="0.5679611650485438" startY="1.0">
                <stops>
@@ -108,5 +108,35 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
+      <Label layoutX="44.0" layoutY="648.0" text="Price">
+         <font>
+            <Font name="System Bold" size="27.0" />
+         </font>
+      </Label>
+      <Label layoutX="44.0" layoutY="741.0" text="Total" textFill="#30336b">
+         <font>
+            <Font name="System Bold" size="39.0" />
+         </font>
+      </Label>
+      <Label layoutX="44.0" layoutY="695.0" text="Discount">
+         <font>
+            <Font name="System Bold" size="27.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblPrice" alignment="CENTER" layoutX="196.0" layoutY="650.0" prefHeight="17.0" prefWidth="123.0" style="-fx-border-radius: 6; -fx-border-color: black;">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblDiscount" alignment="CENTER" layoutX="196.0" layoutY="699.0" prefHeight="17.0" prefWidth="123.0" style="-fx-border-radius: 6; -fx-border-color: black;">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblTotalPrice" alignment="CENTER" layoutX="196.0" layoutY="745.0" prefHeight="48.0" prefWidth="123.0" style="-fx-border-radius: 6; -fx-border-color: #30336b;" textFill="#30336b">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
