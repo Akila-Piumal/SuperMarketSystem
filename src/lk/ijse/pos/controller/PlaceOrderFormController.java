@@ -5,8 +5,14 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.Custom.PlaceOrderBO;
 import lk.ijse.pos.dto.CustomerDTO;
@@ -15,6 +21,7 @@ import lk.ijse.pos.dto.OrderDTO;
 import lk.ijse.pos.dto.OrderDetailsDTO;
 import lk.ijse.pos.view.tdm.OrderDetailsTM;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -49,6 +56,7 @@ public class PlaceOrderFormController {
     public JFXButton btnNewCustomer;
     public JFXButton btnPlaceOrder;
     public JFXButton btnAddToList;
+    public AnchorPane placeOrderFormContext;
 
 
     PlaceOrderBO placeOrderBO = (PlaceOrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PLACEORDER);
@@ -379,5 +387,11 @@ public class PlaceOrderFormController {
         if (buttonType.get().equals(ButtonType.YES)){
             clearAll();
         }
+    }
+
+    public void backToHomeOnAction(MouseEvent mouseEvent) throws IOException {
+        Stage stage = (Stage) placeOrderFormContext.getScene().getWindow();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/CashierDashBoardForm.fxml"))));
+        stage.show();
     }
 }
