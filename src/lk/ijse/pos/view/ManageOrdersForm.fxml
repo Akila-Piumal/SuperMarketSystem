@@ -50,7 +50,7 @@
          </cursor>
       </ImageView>
       <JFXComboBox fx:id="cmbSelectCustomer" labelFloat="true" layoutX="43.0" layoutY="145.0" prefHeight="45.0" prefWidth="226.0" promptText="Select Customer" />
-      <JFXTextField labelFloat="true" layoutX="753.0" layoutY="132.0" onKeyReleased="#textFields_Key_Released" prefHeight="45.0" prefWidth="189.0" promptText="search orders">
+      <JFXTextField fx:id="txtSearchOrders" labelFloat="true" layoutX="753.0" layoutY="132.0" onKeyPressed="#textFields_Key_Pressed" prefHeight="45.0" prefWidth="189.0" promptText="search orders">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
