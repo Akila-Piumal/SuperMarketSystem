@@ -6,15 +6,9 @@
     -fx-text-fill: black !important;
 }
 
-.combo-box{
-    -fx-font-weight: bold;
-    -fx-font-size: 21;
-}
-
 #ancherPhane{
     -fx-background-color: white;
 }
-
 .table-column{
     -fx-alignment: CENTER;
 }

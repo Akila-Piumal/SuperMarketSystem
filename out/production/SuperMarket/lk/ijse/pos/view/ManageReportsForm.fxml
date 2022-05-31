@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.controller.ManageReportsFormController">
+   <children>
+      <AnchorPane layoutX="-2.0" prefHeight="819.0" prefWidth="368.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="805.0" layoutY="1.0" stroke="WHITE" strokeType="INSIDE" width="368.0">
+               <fill>
+                  <LinearGradient endX="0.2524271844660194" endY="0.2281553398058252" startX="1.0" startY="0.5970873786407768">
+                     <stops>
+                        <Stop color="WHITE" />
+                        <Stop color="#1cb5d9" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <Button layoutX="29.0" layoutY="98.0" mnemonicParsing="false" onAction="#dailyIncomeReportOnAction" prefHeight="31.0" prefWidth="260.0" style="-fx-background-color: white;" text="Daily Income">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Button>
+            <Button layoutX="29.0" layoutY="187.0" mnemonicParsing="false" onAction="#monthlyIncomeReportOnAction" prefHeight="31.0" prefWidth="260.0" style="-fx-background-color: white;" text="Monthly Income">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Button>
+            <Button layoutX="29.0" layoutY="268.0" mnemonicParsing="false" onAction="#annualIncomeReportOnAction" prefHeight="31.0" prefWidth="260.0" style="-fx-background-color: white;" text="Annual Income">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Button>
+            <Button layoutX="29.0" layoutY="373.0" mnemonicParsing="false" onAction="#mostMovableItemReportOnAction" prefHeight="31.0" prefWidth="260.0" style="-fx-background-color: white;" text="Most Movable">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Button>
+            <Button layoutX="29.0" layoutY="471.0" mnemonicParsing="false" onAction="#LeastMovableItemReportOnAction" prefHeight="31.0" prefWidth="260.0" style="-fx-background-color: white;" text="Least Movable">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="reportsFormContext" layoutX="366.0" prefHeight="825.0" prefWidth="832.0">
+         <children>
+            <Label layoutX="162.0" layoutY="45.0" text="MANAGE REPORTS" underline="true">
+               <font>
+                  <Font name="System Bold Italic" size="45.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="0.8349514563106796" endY="0.08252427184466016" startX="0.8398058252427184" startY="0.18932038834951456">
+                     <stops>
+                        <Stop color="BLACK" />
+                        <Stop color="#0da6d0" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

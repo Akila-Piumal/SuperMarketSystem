@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="825.0" prefWidth="832.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.controller.AnnualIncomeReportFormController">
+   <children>
+      <Label layoutX="257.0" layoutY="14.0" text="Annual Income" underline="true">
+         <font>
+            <Font name="System Bold Italic" size="45.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="0.8349514563106796" endY="0.08252427184466016" startX="0.8398058252427184" startY="0.18932038834951456">
+               <stops>
+                  <Stop color="BLACK" />
+                  <Stop color="#0da6d0" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+   </children>
+</AnchorPane>

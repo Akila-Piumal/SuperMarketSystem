@@ -1,9 +1,6 @@
 package lk.ijse.pos.bo;
 
-import lk.ijse.pos.bo.Custom.impl.LoginBOImpl;
-import lk.ijse.pos.bo.Custom.impl.ManageItemBOImpl;
-import lk.ijse.pos.bo.Custom.impl.ManageOrderBOImpl;
-import lk.ijse.pos.bo.Custom.impl.PlaceOrderBOImpl;
+import lk.ijse.pos.bo.Custom.impl.*;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -20,7 +17,7 @@ public class BOFactory {
     }
 
     public enum BOTypes{
-        LOGIN,PLACEORDER,MANAGEORDER,MANAGEITEM
+        LOGIN,PLACEORDER,MANAGEORDER,MANAGEITEM,DAILYINCOME
     }
 
     public SuperBO getBO(BOTypes types){
@@ -33,6 +30,8 @@ public class BOFactory {
                 return new ManageOrderBOImpl();
             case MANAGEITEM:
                 return new ManageItemBOImpl();
+            case DAILYINCOME:
+                return new DailyIncomeBOImpl();
             default:
                 return null;
         }

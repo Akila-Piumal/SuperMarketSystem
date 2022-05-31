@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="ancherPhane" fx:id="dailyIncomeContext" prefHeight="825.0" prefWidth="832.0" stylesheets="@assests/styles/IncomeForms.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.controller.DailyIncomeReportFormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="825.0" layoutX="508.0" stroke="WHITE" strokeType="INSIDE" width="324.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.9563106796116505" startX="0.5922330097087379" startY="1.0">
+               <stops>
+                  <Stop color="WHITE" />
+                  <Stop color="#1cb5d9" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Label layoutX="277.0" layoutY="14.0" text="Daily Income" underline="true">
+         <font>
+            <Font name="System Bold Italic" size="45.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="0.8349514563106796" endY="0.08252427184466016" startX="0.8398058252427184" startY="0.18932038834951456">
+               <stops>
+                  <Stop color="BLACK" />
+                  <Stop color="#0da6d0" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+      <TableView fx:id="tblIncomeDetails" layoutX="58.0" layoutY="227.0" prefHeight="496.0" prefWidth="713.0">
+         <columns>
+            <TableColumn prefWidth="219.0" text="Order Date" />
+            <TableColumn minWidth="8.0" prefWidth="260.0" text="Orders Count" />
+            <TableColumn prefWidth="198.0" text="Income" />
+         </columns>
+      </TableView>
+      <ImageView fitHeight="76.0" fitWidth="81.0" layoutX="20.0" layoutY="27.0" onMouseClicked="#backToHomeOnAction" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assests/images/home-icon.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+   </children>
+</AnchorPane>

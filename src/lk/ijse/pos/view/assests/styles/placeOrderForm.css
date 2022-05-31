@@ -5,3 +5,7 @@
 .table-row-cell:selected .table-cell{
     -fx-text-fill: black !important;
 }
+
+.table-column{
+    -fx-alignment: CENTER;
+}

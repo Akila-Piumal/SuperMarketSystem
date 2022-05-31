@@ -6,6 +6,7 @@ import lk.ijse.pos.entity.Custom;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class QueryDAOImpl implements QueryDAO {
@@ -18,5 +19,15 @@ public class QueryDAOImpl implements QueryDAO {
             orderDetails.add(new Custom(resultSet.getString(1),resultSet.getString(2),resultSet.getBigDecimal(3),resultSet.getInt(4)));
         }
         return orderDetails;
+    }
+
+    @Override
+    public ArrayList<Custom> getDailyIncomeDetails() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT o.OrderDate ,count(OD.OrderID) , SUM((unitPrice*OrderQTY)-Discount) from orders o RIGHT JOIN orderdetail OD ON o.OrderID = OD.OrderID LEFT JOIN item i on OD.ItemCode = i.ItemCode GROUP BY o.OrderDate");
+        ArrayList<Custom> incomeDetails=new ArrayList<>();
+        while (resultSet.next()){
+            incomeDetails.add(new Custom(LocalDate.parse(resultSet.getString(1)),resultSet.getInt(2),resultSet.getDouble(3)));
+        }
+        return incomeDetails;
     }
 }

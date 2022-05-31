@@ -24,10 +24,20 @@ public class Custom {
 
     private LocalDate date;
 
+    private int orderCount;
+
+    private double total;
+
     public Custom() {
     }
 
-    public Custom(String itemCode, String description, String packSize,int qtyOnHand, BigDecimal unitPrice,  int qty, double discount) {
+    public Custom(LocalDate date, int orderCount, double total) {
+        this.date = date;
+        this.orderCount = orderCount;
+        this.total = total;
+    }
+
+    public Custom(String itemCode, String description, String packSize, int qtyOnHand, BigDecimal unitPrice, int qty, double discount) {
         this.itemCode = itemCode;
         this.description = description;
         this.packSize = packSize;
@@ -170,5 +180,21 @@ public class Custom {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public int getOrderCount() {
+        return orderCount;
+    }
+
+    public void setOrderCount(int orderCount) {
+        this.orderCount = orderCount;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 }

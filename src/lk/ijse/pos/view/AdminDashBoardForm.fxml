@@ -17,5 +17,10 @@
             <Font name="System Bold" size="42.0" />
          </font>
       </Button>
+      <Button layoutX="578.0" layoutY="290.0" mnemonicParsing="false" onAction="#btnManageReportsFormOnAction" text="System Reports">
+         <font>
+            <Font name="System Bold" size="42.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

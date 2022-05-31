@@ -24,7 +24,17 @@ public class CustomDTO {
 
     private LocalDate date;
 
+    private int orderCount;
+
+    private double total;
+
     public CustomDTO() {
+    }
+
+    public CustomDTO(LocalDate date, int orderCount, double total) {
+        this.date = date;
+        this.orderCount = orderCount;
+        this.total = total;
     }
 
     public CustomDTO(String itemCode, String description, String packSize, int qtyOnHand, BigDecimal unitPrice, int qty, double discount) {
@@ -170,5 +180,21 @@ public class CustomDTO {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public int getOrderCount() {
+        return orderCount;
+    }
+
+    public void setOrderCount(int orderCount) {
+        this.orderCount = orderCount;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 }
