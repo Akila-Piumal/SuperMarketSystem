@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -14,6 +15,7 @@ public class ManageReportsFormController {
 
 
     public AnchorPane reportsFormContext;
+    public AnchorPane SideContext;
 
     public void dailyIncomeReportOnAction(ActionEvent actionEvent) throws IOException {
         setUi("DailyIncomeReport");
@@ -39,5 +41,11 @@ public class ManageReportsFormController {
         reportsFormContext.getChildren().clear();
         Parent parent = FXMLLoader.load(getClass().getResource("../view/" + URI + "Form.fxml"));
         reportsFormContext.getChildren().add(parent);
+    }
+
+    public void backToHomeOnAction(MouseEvent mouseEvent) throws IOException {
+        Parent parent = SideContext.getParent();
+        Stage stage = (Stage) parent.getScene().getWindow();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/AdminDashBoardForm.fxml"))));
     }
 }

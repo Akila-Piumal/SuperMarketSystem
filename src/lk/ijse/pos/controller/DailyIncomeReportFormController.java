@@ -22,7 +22,6 @@ import java.util.ArrayList;
 public class DailyIncomeReportFormController {
 
     public TableView<IncomeTM> tblIncomeDetails;
-    public AnchorPane dailyIncomeContext;
     private final DailyIncomeBO dailyIncomeBO = (DailyIncomeBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.DAILYINCOME);
 
     public void initialize(){
@@ -47,9 +46,4 @@ public class DailyIncomeReportFormController {
 
     }
 
-    public void backToHomeOnAction(MouseEvent mouseEvent) throws IOException {
-        Parent parent = dailyIncomeContext.getParent();
-        Stage stage = (Stage) parent.getScene().getWindow();
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/AdminDashBoardForm.fxml"))));
-    }
 }
