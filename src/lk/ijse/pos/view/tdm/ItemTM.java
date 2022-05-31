@@ -1,23 +1,18 @@
-package lk.ijse.pos.dto;
+package lk.ijse.pos.view.tdm;
 
 import java.math.BigDecimal;
 
-public class ItemDTO {
+public class ItemTM {
     private String itemCode;
     private String description;
     private String packSize;
     private BigDecimal unitPrice;
     private int qtyOnHand;
 
-    public ItemDTO() {
+    public ItemTM() {
     }
 
-    public ItemDTO(String itemCode, int qtyOnHand) {
-        this.itemCode = itemCode;
-        this.qtyOnHand = qtyOnHand;
-    }
-
-    public ItemDTO(String itemCode, String description, String packSize, BigDecimal unitPrice, int qtyOnHand) {
+    public ItemTM(String itemCode, String description, String packSize, BigDecimal unitPrice, int qtyOnHand) {
         this.itemCode = itemCode;
         this.description = description;
         this.packSize = packSize;
@@ -67,7 +62,7 @@ public class ItemDTO {
 
     @Override
     public String toString() {
-        return "ItemDTO{" +
+        return "ItemTM{" +
                 "itemCode='" + itemCode + '\'' +
                 ", description='" + description + '\'' +
                 ", packSize='" + packSize + '\'' +

@@ -4,13 +4,16 @@ import lk.ijse.pos.bo.Custom.ManageOrderBO;
 import lk.ijse.pos.dao.DAOFactory;
 import lk.ijse.pos.dao.SuperDAO;
 import lk.ijse.pos.dao.custom.CustomerDAO;
+import lk.ijse.pos.dao.custom.ItemDAO;
 import lk.ijse.pos.dao.custom.OrderDAO;
 import lk.ijse.pos.dao.custom.QueryDAO;
 import lk.ijse.pos.dto.CustomDTO;
 import lk.ijse.pos.dto.CustomerDTO;
+import lk.ijse.pos.dto.ItemDTO;
 import lk.ijse.pos.dto.OrderDTO;
 import lk.ijse.pos.entity.Custom;
 import lk.ijse.pos.entity.Customer;
+import lk.ijse.pos.entity.Item;
 import lk.ijse.pos.entity.Orders;
 
 import java.sql.SQLException;
@@ -21,6 +24,7 @@ public class ManageOrderBOImpl implements ManageOrderBO {
     private final CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
     private final OrderDAO orderDAO = (OrderDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDER);
     private final QueryDAO queryDAO = (QueryDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.QUERYDAO);
+    private final ItemDAO itemDAO = (ItemDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
 
     @Override
     public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
@@ -50,4 +54,18 @@ public class ManageOrderBOImpl implements ManageOrderBO {
         }
         return orderDetails;
     }
+
+    @Override
+    public boolean updateItemDetails(String itemCode, int qty) throws SQLException, ClassNotFoundException {
+        Item item = itemDAO.search(itemCode);
+        item.setQtyOnHand(qty+item.getQtyOnHand());
+        return itemDAO.update(item);
+    }
+
+    @Override
+    public ItemDTO getItemDetails(String itemCode) throws SQLException, ClassNotFoundException {
+        Item item = itemDAO.search(itemCode);
+        return new ItemDTO(item.getItemCode(),item.getDescription(),item.getPackSize(),item.getUnitPrice(),item.getQtyOnHand());
+    }
+
 }

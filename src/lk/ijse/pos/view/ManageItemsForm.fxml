@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="ancherPhane" fx:id="manageItemFormContext" prefHeight="800.0" prefWidth="1200.0" stylesheets="@assests/styles/manageItemsForm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.controller.ManageItemsFormController">
+   <children>
+      <Label layoutX="146.0" layoutY="31.0" text="MANAGE ITEMS" underline="true">
+         <font>
+            <Font name="System Bold Italic" size="45.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="0.8349514563106796" endY="0.08252427184466016" startX="0.8398058252427184" startY="0.18932038834951456">
+               <stops>
+                  <Stop color="BLACK" />
+                  <Stop color="#0da6d0" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+      <ImageView fitHeight="76.0" fitWidth="81.0" layoutX="14.0" layoutY="31.0" onMouseClicked="#backToHomeOnAction" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assests/images/home-icon.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="800.0" layoutX="891.0" stroke="WHITE" strokeType="INSIDE" width="324.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.9563106796116505" startX="0.5922330097087379" startY="1.0">
+               <stops>
+                  <Stop color="WHITE" />
+                  <Stop color="#1cb5d9" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <TableView fx:id="tblItemDetails" layoutX="369.0" layoutY="208.0" prefHeight="479.0" prefWidth="832.0">
+         <columns>
+            <TableColumn prefWidth="101.0" text="Item Code" />
+            <TableColumn minWidth="8.0" prefWidth="180.0" text="Description" />
+            <TableColumn prefWidth="113.0" text="Pack Size" />
+            <TableColumn prefWidth="117.0" text="Unit Price" />
+            <TableColumn prefWidth="131.0" text="Qty On Hand" />
+            <TableColumn prefWidth="189.0" text="Option" />
+         </columns>
+      </TableView>
+      <Label layoutX="643.0" layoutY="135.0" text="ITEM DETAILS" textFill="#130f40" underline="true">
+         <font>
+            <Font name="Eras Light ITC" size="34.0" />
+         </font>
+      </Label>
+      <Label layoutX="41.0" layoutY="208.0" text="REGISTER ITEM" textFill="#130f40" underline="true">
+         <font>
+            <Font name="Eras Light ITC" size="34.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtDescription" labelFloat="true" layoutX="33.0" layoutY="361.0" prefHeight="51.0" prefWidth="237.0" promptText="Description" unFocusColor="#30336b">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="txtPackSize" labelFloat="true" layoutX="33.0" layoutY="446.0" prefHeight="51.0" prefWidth="237.0" promptText="Pack Size" unFocusColor="#30336b">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="txtUnitPrice" labelFloat="true" layoutX="33.0" layoutY="601.0" prefHeight="51.0" prefWidth="237.0" promptText="Unit Price" unFocusColor="#30336b">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="txtQtyOnHand" labelFloat="true" layoutX="33.0" layoutY="524.0" prefHeight="51.0" prefWidth="237.0" promptText="Qty On Hand" unFocusColor="#30336b">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="txtItemCode" labelFloat="true" layoutX="33.0" layoutY="292.0" prefHeight="44.0" prefWidth="237.0" promptText="Item Code" unFocusColor="#30336b">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </JFXTextField>
+      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="88.0" layoutY="678.0" onAction="#btnSaveItemOnAction" style="-fx-background-color: #55E6C1; -fx-background-radius: 8;" text="Register" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+   </children>
+</AnchorPane>

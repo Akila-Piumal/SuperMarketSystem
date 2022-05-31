@@ -27,6 +27,16 @@ public class Custom {
     public Custom() {
     }
 
+    public Custom(String itemCode, String description, String packSize,int qtyOnHand, BigDecimal unitPrice,  int qty, double discount) {
+        this.itemCode = itemCode;
+        this.description = description;
+        this.packSize = packSize;
+        this.unitPrice = unitPrice;
+        this.qtyOnHand = qtyOnHand;
+        this.qty = qty;
+        this.discount = discount;
+    }
+
     public Custom(String itemCode, String description, BigDecimal unitPrice, int qty) {
         this.itemCode = itemCode;
         this.description = description;

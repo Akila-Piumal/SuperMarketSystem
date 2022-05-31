@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
         ArrayList<T> getAll() throws SQLException, ClassNotFoundException;
 
-        boolean save(T dto) throws SQLException, ClassNotFoundException;
+        boolean save(T entity) throws SQLException, ClassNotFoundException;
 
-        boolean update(T dto) throws SQLException, ClassNotFoundException;
+        boolean update(T entity) throws SQLException, ClassNotFoundException;
 
         boolean delete(ID id) throws SQLException, ClassNotFoundException;
 

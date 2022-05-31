@@ -17,7 +17,7 @@
 
 <AnchorPane id="ancherPhane" fx:id="manageOrderContext" prefHeight="800.0" prefWidth="1200.0" stylesheets="@assests/styles/manageOrderForm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.controller.ManageOrdersFormController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="282.0" layoutX="881.0" layoutY="-7.0" stroke="WHITE" strokeType="INSIDE" width="324.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="296.0" layoutX="881.0" layoutY="-7.0" stroke="WHITE" strokeType="INSIDE" width="324.0">
          <fill>
             <LinearGradient endX="1.0" endY="0.7135922330097088" startX="0.5679611650485438" startY="1.0">
                <stops>
@@ -82,7 +82,7 @@
             <TableColumn prefWidth="230.0" text="Remove" />
          </columns>
       </TableView>
-      <JFXButton buttonType="RAISED" layoutX="1076.0" layoutY="197.0" onAction="#btnUpdateItemDetailsOnAction" style="-fx-background-color: #12CBC4;" text="Update" textFill="WHITE">
+      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="1076.0" layoutY="197.0" onAction="#btnUpdateItemDetailsOnAction" style="-fx-background-color: #12CBC4;" text="Update" textFill="WHITE">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
@@ -91,7 +91,7 @@
          </cursor>
       </JFXButton>
       <JFXTextField fx:id="txtItemCode" labelFloat="true" layoutX="43.0" layoutY="211.0" prefHeight="31.0" prefWidth="115.0" promptText="Item Code" />
-      <JFXButton buttonType="RAISED" layoutX="1022.0" layoutY="693.0" onAction="#btnConfirmEditsOnAction" style="-fx-background-color: #55E6C1; -fx-background-radius: 8;" text="Confirm Edits" textFill="WHITE">
+      <JFXButton fx:id="btnConfirm" buttonType="RAISED" layoutX="1022.0" layoutY="693.0" onAction="#btnConfirmEditsOnAction" style="-fx-background-color: #55E6C1; -fx-background-radius: 8;" text="Confirm Edits" textFill="WHITE">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>

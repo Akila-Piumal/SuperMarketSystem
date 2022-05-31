@@ -8,4 +8,5 @@ import java.util.ArrayList;
 
 public interface QueryDAO extends SuperDAO {
     ArrayList<Custom> getOrderDetails(String orderID) throws SQLException, ClassNotFoundException;
+
 }

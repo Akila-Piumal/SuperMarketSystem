@@ -20,8 +20,8 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public boolean save(Item dto) throws SQLException, ClassNotFoundException {
-        return false;
+    public boolean save(Item item) throws SQLException, ClassNotFoundException {
+        return SQLUtil.executeUpdate("INSERT INTO item VALUES(?,?,?,?,?)",item.getItemCode(),item.getDescription(),item.getPackSize(),item.getUnitPrice(),item.getQtyOnHand());
     }
 
     @Override
@@ -30,13 +30,14 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public boolean delete(String s) throws SQLException, ClassNotFoundException {
-        return false;
+    public boolean delete(String itemCode) throws SQLException, ClassNotFoundException {
+        return SQLUtil.executeUpdate("DELETE FROM item WHERE itemCode=?",itemCode);
     }
 
     @Override
     public String generateNewId() throws SQLException, ClassNotFoundException {
-        return null;
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT itemCode FROM item ORDER BY itemCode DESC LIMIT 1");
+        return resultSet.next() ? String.format("I%03d", (Integer.parseInt(resultSet.getString("itemCode").replace("I", "")) + 1)) : "I001";
     }
 
     @Override
