@@ -28,7 +28,15 @@ public class Custom {
 
     private double total;
 
+    private String yearAndMonth;
+
     public Custom() {
+    }
+
+    public Custom(String yearAndMonth,int orderCount, double total ) {
+        this.orderCount = orderCount;
+        this.total = total;
+        this.yearAndMonth = yearAndMonth;
     }
 
     public Custom(LocalDate date, int orderCount, double total) {
@@ -196,5 +204,13 @@ public class Custom {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public String getYearAndMonth() {
+        return yearAndMonth;
+    }
+
+    public void setYearAndMonth(String yearAndMonth) {
+        this.yearAndMonth = yearAndMonth;
     }
 }

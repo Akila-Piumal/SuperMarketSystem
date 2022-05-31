@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="ancherPhane" fx:id="dailyIncomeContext" prefHeight="825.0" prefWidth="832.0" stylesheets="@assests/styles/IncomeForms.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.controller.DailyIncomeReportFormController">
+<AnchorPane id="ancherPhane" prefHeight="825.0" prefWidth="832.0" stylesheets="@assests/styles/IncomeForms.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.controller.DailyIncomeReportFormController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="825.0" layoutX="508.0" stroke="WHITE" strokeType="INSIDE" width="324.0">
          <fill>
@@ -44,13 +41,5 @@
             <TableColumn prefWidth="198.0" text="Income" />
          </columns>
       </TableView>
-      <ImageView fitHeight="76.0" fitWidth="81.0" layoutX="20.0" layoutY="27.0" onMouseClicked="#backToHomeOnAction" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@assests/images/home-icon.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
    </children>
 </AnchorPane>

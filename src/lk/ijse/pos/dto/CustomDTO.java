@@ -28,7 +28,15 @@ public class CustomDTO {
 
     private double total;
 
+    private String yearAndMonth;
+
     public CustomDTO() {
+    }
+
+    public CustomDTO(String yearAndMonth,int orderCount, double total) {
+        this.orderCount = orderCount;
+        this.total = total;
+        this.yearAndMonth = yearAndMonth;
     }
 
     public CustomDTO(LocalDate date, int orderCount, double total) {
@@ -196,5 +204,13 @@ public class CustomDTO {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public String getYearAndMonth() {
+        return yearAndMonth;
+    }
+
+    public void setYearAndMonth(String yearAndMonth) {
+        this.yearAndMonth = yearAndMonth;
     }
 }

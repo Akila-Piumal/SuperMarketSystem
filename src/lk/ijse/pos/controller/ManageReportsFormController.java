@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.IOException;
+import java.text.DateFormat;
 
 public class ManageReportsFormController {
 
@@ -35,6 +36,7 @@ public class ManageReportsFormController {
 
     public void LeastMovableItemReportOnAction(ActionEvent actionEvent) throws IOException {
         setUi("LeastMovableItemsReport");
+
     }
 
     private void setUi(String URI) throws IOException {
