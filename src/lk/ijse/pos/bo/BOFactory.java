@@ -17,7 +17,7 @@ public class BOFactory {
     }
 
     public enum BOTypes{
-        LOGIN,PLACEORDER,MANAGEORDER,MANAGEITEM,DAILYINCOME,MONTHLYINCOME
+        LOGIN,PLACEORDER,MANAGEORDER,MANAGEITEM,DAILYINCOME,MONTHLYINCOME,ANNUALINCOME
     }
 
     public SuperBO getBO(BOTypes types){
@@ -34,6 +34,8 @@ public class BOFactory {
                 return new DailyIncomeBOImpl();
             case MONTHLYINCOME:
                 return new MonthlyIncomeBOImpl();
+            case ANNUALINCOME:
+                return new AnnualIncomeBOImpl();
             default:
                 return null;
         }

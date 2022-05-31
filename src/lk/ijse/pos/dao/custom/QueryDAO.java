@@ -12,4 +12,6 @@ public interface QueryDAO extends SuperDAO {
     ArrayList<Custom> getDailyIncomeDetails() throws SQLException, ClassNotFoundException;
 
     ArrayList<Custom> getMonthlyIncomeDetails() throws SQLException, ClassNotFoundException;
+
+    ArrayList<Custom> getAnnualIncomeDetails() throws SQLException, ClassNotFoundException;
 }

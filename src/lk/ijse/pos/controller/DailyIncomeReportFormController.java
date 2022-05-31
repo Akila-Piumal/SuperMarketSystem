@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class DailyIncomeReportFormController {
 
     public TableView<IncomeTM> tblIncomeDetails;
+
     private final DailyIncomeBO dailyIncomeBO = (DailyIncomeBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.DAILYINCOME);
 
     public void initialize(){
