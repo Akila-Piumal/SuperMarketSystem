@@ -32,4 +32,10 @@ public class AdminDashBoardFormController {
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/ManageReportsForm.fxml"))));
         stage.show();
     }
+
+    public void logOutOnAction(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) AdminDashBoardContext.getScene().getWindow();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/LoginForm.fxml"))));
+        stage.show();
+    }
 }

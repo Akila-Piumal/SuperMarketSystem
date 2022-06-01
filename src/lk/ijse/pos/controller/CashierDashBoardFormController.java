@@ -32,4 +32,10 @@ public class CashierDashBoardFormController {
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/ManageOrdersForm.fxml"))));
         stage.show();
     }
+
+    public void logOutOnAction(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) CashierDashBoardContext.getScene().getWindow();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/LoginForm.fxml"))));
+        stage.show();
+    }
 }

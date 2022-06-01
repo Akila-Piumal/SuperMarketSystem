@@ -22,5 +22,10 @@
             <Font name="System Bold" size="50.0" />
          </font>
       </Button>
+      <Button layoutX="911.0" layoutY="607.0" mnemonicParsing="false" onAction="#logOutOnAction" style="-fx-background-color: #ff7979; -fx-background-radius: 8;" text="LOG OUT" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="32.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

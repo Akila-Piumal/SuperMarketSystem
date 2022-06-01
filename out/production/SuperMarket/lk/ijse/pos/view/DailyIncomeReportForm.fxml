@@ -21,7 +21,7 @@
             </LinearGradient>
          </fill>
       </Rectangle>
-      <Label layoutX="277.0" layoutY="14.0" text="Daily Income" underline="true">
+      <Label layoutX="274.0" layoutY="48.0" text="Daily Income" underline="true">
          <font>
             <Font name="System Bold Italic" size="45.0" />
          </font>
@@ -34,7 +34,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <TableView fx:id="tblIncomeDetails" layoutX="58.0" layoutY="227.0" prefHeight="496.0" prefWidth="713.0">
+      <TableView fx:id="tblIncomeDetails" layoutX="57.0" layoutY="227.0" prefHeight="496.0" prefWidth="713.0">
          <columns>
             <TableColumn prefWidth="219.0" text="Order Date" />
             <TableColumn minWidth="8.0" prefWidth="260.0" text="Orders Count" />

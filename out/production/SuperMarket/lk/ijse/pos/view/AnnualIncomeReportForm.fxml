@@ -21,14 +21,14 @@
             </LinearGradient>
          </fill>
       </Rectangle>
-      <TableView fx:id="tblIncomeDetails" layoutX="78.0" layoutY="247.0" prefHeight="496.0" prefWidth="713.0">
+      <TableView fx:id="tblIncomeDetails" layoutX="57.0" layoutY="227.0" prefHeight="496.0" prefWidth="713.0">
          <columns>
             <TableColumn prefWidth="234.0" text="Year" />
             <TableColumn minWidth="8.0" prefWidth="257.0" text="Orders Count" />
             <TableColumn prefWidth="221.0" text="Income" />
          </columns>
       </TableView>
-      <Label layoutX="257.0" layoutY="14.0" text="Annual Income" underline="true">
+      <Label layoutX="274.0" layoutY="48.0" text="Annual Income" underline="true">
          <font>
             <Font name="System Bold Italic" size="45.0" />
          </font>
