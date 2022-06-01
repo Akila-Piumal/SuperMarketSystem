@@ -33,7 +33,16 @@ public class Custom {
     public Custom() {
     }
 
-    public Custom(String yearAndMonth,int orderCount, double total ) {
+    public Custom(String itemCode, String description, BigDecimal unitPrice, int qtyOnHand, int orderCount, double total) {
+        this.itemCode = itemCode;
+        this.description = description;
+        this.unitPrice = unitPrice;
+        this.qtyOnHand = qtyOnHand;
+        this.orderCount = orderCount;
+        this.total = total;
+    }
+
+    public Custom(String yearAndMonth, int orderCount, double total ) {
         this.orderCount = orderCount;
         this.total = total;
         this.yearAndMonth = yearAndMonth;

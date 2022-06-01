@@ -1,16 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="825.0" prefWidth="832.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.controller.LeastMovableItemsReportFormController">
+<AnchorPane id="ancherPhane" prefHeight="825.0" prefWidth="832.0" stylesheets="@assests/styles/IncomeForms.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.controller.LeastMovableItemsReportFormController">
    <children>
-      <Label layoutX="257.0" layoutY="293.0" text="Least Movable">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="825.0" layoutX="528.0" stroke="WHITE" strokeType="INSIDE" width="324.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.9563106796116505" startX="0.5922330097087379" startY="1.0">
+               <stops>
+                  <Stop color="WHITE" />
+                  <Stop color="#1cb5d9" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <TableView fx:id="tblLeastMovable" layoutX="44.0" layoutY="227.0" prefHeight="496.0" prefWidth="759.0">
+         <columns>
+            <TableColumn prefWidth="101.0" text="Item Code" />
+            <TableColumn minWidth="8.0" prefWidth="169.0" text="Description" />
+            <TableColumn prefWidth="106.0" text="Unit Price" />
+            <TableColumn prefWidth="118.0" text="Qty On Hand" />
+            <TableColumn prefWidth="127.0" text="Sales Count" />
+            <TableColumn prefWidth="136.0" text="Income" />
+         </columns>
+      </TableView>
+      <Label layoutX="274.0" layoutY="48.0" text="Least Movable" underline="true">
          <font>
-            <Font name="System Bold" size="47.0" />
+            <Font name="System Bold Italic" size="45.0" />
          </font>
+         <textFill>
+            <LinearGradient endX="0.8349514563106796" endY="0.08252427184466016" startX="0.8398058252427184" startY="0.18932038834951456">
+               <stops>
+                  <Stop color="BLACK" />
+                  <Stop color="#0da6d0" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
       </Label>
    </children>
 </AnchorPane>

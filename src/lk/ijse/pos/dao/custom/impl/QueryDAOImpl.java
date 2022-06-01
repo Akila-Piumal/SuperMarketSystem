@@ -5,6 +5,7 @@ import lk.ijse.pos.dao.custom.QueryDAO;
 import lk.ijse.pos.entity.Custom;
 
 import javax.swing.text.DateFormatter;
+import java.sql.Array;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -53,5 +54,25 @@ public class QueryDAOImpl implements QueryDAO {
             incomeDetails.add(new Custom(resultSet.getString(1),resultSet.getInt(2),resultSet.getDouble(3)));
         }
         return incomeDetails;
+    }
+
+    @Override
+    public ArrayList<Custom> getMostMovableItemDetails() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT orderdetail.ItemCode,item.Description,item.UnitPrice,item.QtyOnHand,SUM(OrderQTY) , SUM((unitPrice*OrderQTY)-Discount) from orderdetail LEFT JOIN item on orderdetail.ItemCode = item.ItemCode GROUP BY ItemCode ORDER BY SUM(OrderQTY) DESC");
+        ArrayList<Custom> itemDetails=new ArrayList<>();
+        while (resultSet.next()){
+            itemDetails.add(new Custom(resultSet.getString(1),resultSet.getString(2),resultSet.getBigDecimal(3),resultSet.getInt(4),resultSet.getInt(5),resultSet.getDouble(6)));
+        }
+        return itemDetails;
+    }
+
+    @Override
+    public ArrayList<Custom> getLeastMovableItemDetails() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT orderdetail.ItemCode,item.Description,item.UnitPrice,item.QtyOnHand,SUM(OrderQTY) , SUM((unitPrice*OrderQTY)-Discount) from orderdetail LEFT JOIN item on orderdetail.ItemCode = item.ItemCode GROUP BY ItemCode ORDER BY SUM(OrderQTY) ASC");
+        ArrayList<Custom> itemDetails=new ArrayList<>();
+        while (resultSet.next()){
+            itemDetails.add(new Custom(resultSet.getString(1),resultSet.getString(2),resultSet.getBigDecimal(3),resultSet.getInt(4),resultSet.getInt(5),resultSet.getDouble(6)));
+        }
+        return itemDetails;
     }
 }

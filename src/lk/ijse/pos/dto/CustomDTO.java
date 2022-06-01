@@ -33,7 +33,16 @@ public class CustomDTO {
     public CustomDTO() {
     }
 
-    public CustomDTO(String yearAndMonth,int orderCount, double total) {
+    public CustomDTO(String itemCode, String description, BigDecimal unitPrice, int qtyOnHand, int orderCount, double total) {
+        this.itemCode = itemCode;
+        this.description = description;
+        this.unitPrice = unitPrice;
+        this.qtyOnHand = qtyOnHand;
+        this.orderCount = orderCount;
+        this.total = total;
+    }
+
+    public CustomDTO(String yearAndMonth, int orderCount, double total) {
         this.orderCount = orderCount;
         this.total = total;
         this.yearAndMonth = yearAndMonth;
