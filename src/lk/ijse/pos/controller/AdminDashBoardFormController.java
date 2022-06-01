@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
+import lk.ijse.pos.util.Animation;
 
 import java.io.IOException;
 
@@ -15,10 +16,7 @@ public class AdminDashBoardFormController {
     public AnchorPane AdminDashBoardContext;
 
     public void initialize(){
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(2000), AdminDashBoardContext);
-        fadeIn.setFromValue(0.0);
-        fadeIn.setToValue(1.0);
-        fadeIn.play();
+        Animation.windowAnimation(AdminDashBoardContext);
     }
 
     public void btnManageItemsFormOnAction(ActionEvent actionEvent) throws IOException {

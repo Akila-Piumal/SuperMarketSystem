@@ -21,6 +21,7 @@ import lk.ijse.pos.dto.CustomerDTO;
 import lk.ijse.pos.dto.ItemDTO;
 import lk.ijse.pos.dto.OrderDTO;
 import lk.ijse.pos.dto.OrderDetailsDTO;
+import lk.ijse.pos.util.Animation;
 import lk.ijse.pos.view.tdm.OrderDetailsTM;
 
 import java.io.IOException;
@@ -64,10 +65,7 @@ public class PlaceOrderFormController {
     PlaceOrderBO placeOrderBO = (PlaceOrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PLACEORDER);
 
     public void initialize() {
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(2000), placeOrderFormContext);
-        fadeIn.setFromValue(0.0);
-        fadeIn.setToValue(1.0);
-        fadeIn.play();
+        Animation.windowAnimation(placeOrderFormContext);
 
         tblOrderDetails.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("itemCode"));
         tblOrderDetails.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("description"));

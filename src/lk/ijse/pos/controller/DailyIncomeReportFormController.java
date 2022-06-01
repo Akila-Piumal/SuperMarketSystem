@@ -1,5 +1,6 @@
 package lk.ijse.pos.controller;
 
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,10 +10,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Duration;
 import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.Custom.DailyIncomeBO;
 import lk.ijse.pos.bo.SuperBO;
 import lk.ijse.pos.dto.CustomDTO;
+import lk.ijse.pos.util.Animation;
 import lk.ijse.pos.view.tdm.IncomeTM;
 
 import java.io.IOException;
@@ -24,8 +27,11 @@ public class DailyIncomeReportFormController {
     public TableView<IncomeTM> tblIncomeDetails;
 
     private final DailyIncomeBO dailyIncomeBO = (DailyIncomeBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.DAILYINCOME);
+    public AnchorPane DailyIncomeFormContext;
 
     public void initialize(){
+        Animation.windowAnimation(DailyIncomeFormContext);
+
         tblIncomeDetails.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("date"));
         tblIncomeDetails.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("orderCount"));
         tblIncomeDetails.getColumns().get(2).setCellValueFactory(new PropertyValueFactory("income"));

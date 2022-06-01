@@ -17,6 +17,7 @@ import javafx.util.Duration;
 import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.Custom.LoginBO;
 import lk.ijse.pos.bo.SuperBO;
+import lk.ijse.pos.util.Animation;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -35,10 +36,7 @@ public class LoginFormController {
         txtPassword.visibleProperty().bind(cbShowPassword.selectedProperty());
         pwdPassword.visibleProperty().bind(cbShowPassword.selectedProperty().not());
 
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(2000), loginFormContext);
-        fadeIn.setFromValue(0.0);
-        fadeIn.setToValue(1.0);
-        fadeIn.play();
+        Animation.windowAnimation(loginFormContext);
     }
 
     public void keyReleased(KeyEvent keyEvent) {

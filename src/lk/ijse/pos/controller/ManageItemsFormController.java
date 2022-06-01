@@ -18,6 +18,7 @@ import javafx.util.Duration;
 import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.Custom.ManageItemBO;
 import lk.ijse.pos.dto.ItemDTO;
+import lk.ijse.pos.util.Animation;
 import lk.ijse.pos.view.tdm.ItemTM;
 
 import java.io.IOException;
@@ -38,11 +39,7 @@ public class ManageItemsFormController {
     public AnchorPane manageItemFormContext;
 
     public void initialize() {
-
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(2000), manageItemFormContext);
-        fadeIn.setFromValue(0.0);
-        fadeIn.setToValue(1.0);
-        fadeIn.play();
+        Animation.windowAnimation(manageItemFormContext);
 
         tblItemDetails.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("itemCode"));
         tblItemDetails.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("description"));

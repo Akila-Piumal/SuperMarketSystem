@@ -1,10 +1,14 @@
 package lk.ijse.pos.controller;
 
+import javafx.animation.FadeTransition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.Custom.LeastMovableItemsBO;
 import lk.ijse.pos.dto.CustomDTO;
+import lk.ijse.pos.util.Animation;
 import lk.ijse.pos.view.tdm.MovableTM;
 
 import java.sql.SQLException;
@@ -14,8 +18,11 @@ public class LeastMovableItemsReportFormController {
     public TableView<MovableTM> tblLeastMovable;
 
     private final LeastMovableItemsBO leastMovableItemsBO= (LeastMovableItemsBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.LEASTMOVABLE);
+    public AnchorPane leastMovableFormContext;
 
     public void initialize(){
+        Animation.windowAnimation(leastMovableFormContext);
+
         tblLeastMovable.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("itemCode"));
         tblLeastMovable.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("description"));
         tblLeastMovable.getColumns().get(2).setCellValueFactory(new PropertyValueFactory("unitPrice"));
