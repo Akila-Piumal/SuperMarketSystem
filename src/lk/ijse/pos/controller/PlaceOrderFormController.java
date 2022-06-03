@@ -9,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -19,6 +21,7 @@ import lk.ijse.pos.dto.ItemDTO;
 import lk.ijse.pos.dto.OrderDTO;
 import lk.ijse.pos.dto.OrderDetailsDTO;
 import lk.ijse.pos.util.Animation;
+import lk.ijse.pos.util.ValidationUtil;
 import lk.ijse.pos.view.tdm.OrderDetailsTM;
 
 import java.io.IOException;
@@ -26,8 +29,10 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class PlaceOrderFormController {
@@ -56,11 +61,26 @@ public class PlaceOrderFormController {
     public JFXButton btnPlaceOrder;
     public JFXButton btnAddToList;
     public AnchorPane placeOrderFormContext;
+    LinkedHashMap<TextField, Pattern> map = new LinkedHashMap<>();
 
     PlaceOrderBO placeOrderBO = (PlaceOrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PLACEORDER);
 
     public void initialize() {
         Animation.windowAnimation(placeOrderFormContext);
+
+        Pattern namePattern = Pattern.compile("^[A-z ]{3,15}$");
+        Pattern addressPatten = Pattern.compile("^[A-z0-9 ,/]{4,20}$");
+        Pattern titlePattern = Pattern.compile("^[A-z0-9]{2,}$");
+        Pattern cityPattern = Pattern.compile("^[A-z0-9]{5,}$");
+        Pattern provincePattern = Pattern.compile("^[A-z]{5,}$");
+        Pattern postalCodePattern = Pattern.compile("^[0-9]{2,}$");
+
+        map.put(txtCustomerName, namePattern);
+        map.put(txtCustomerAddress, addressPatten);
+        map.put(txtCustomerTitle, titlePattern);
+        map.put(txtCity, cityPattern);
+        map.put(txtProvince, provincePattern);
+        map.put(txtPostalCode, postalCodePattern);
 
         tblOrderDetails.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("itemCode"));
         tblOrderDetails.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("description"));
@@ -237,20 +257,7 @@ public class PlaceOrderFormController {
         txtCustomerName.requestFocus();
 
         if (btnNewCustomer.getText().equalsIgnoreCase("Add")) {
-            try {
-                String newCustomerID = generateNewCustomerID();
-                if (placeOrderBO.saveCustomer(new CustomerDTO(newCustomerID, txtCustomerTitle.getText(), txtCustomerName.getText(), txtCustomerAddress.getText(), txtCity.getText(), txtProvince.getText(), txtPostalCode.getText()))) {
-                    cmbCustomerID.getItems().clear();
-                    loadAllCustomerIds();
-                    cmbCustomerID.setValue(newCustomerID);
-                    btnNewCustomer.setText("+New Customer");
-                    cmbItemCode.requestFocus();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+            saveCustomer();
         } else {
             cmbCustomerID.getSelectionModel().clearSelection();
             txtCustomerName.clear();
@@ -261,7 +268,23 @@ public class PlaceOrderFormController {
             txtPostalCode.clear();
             btnNewCustomer.setText("Add");
         }
+    }
 
+    private void saveCustomer() {
+        try {
+            String newCustomerID = generateNewCustomerID();
+            if (placeOrderBO.saveCustomer(new CustomerDTO(newCustomerID, txtCustomerTitle.getText(), txtCustomerName.getText(), txtCustomerAddress.getText(), txtCity.getText(), txtProvince.getText(), txtPostalCode.getText()))) {
+                cmbCustomerID.getItems().clear();
+                loadAllCustomerIds();
+                cmbCustomerID.setValue(newCustomerID);
+                btnNewCustomer.setText("+New Customer");
+                cmbItemCode.requestFocus();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private String generateNewCustomerID() throws SQLException, ClassNotFoundException {
@@ -393,5 +416,20 @@ public class PlaceOrderFormController {
         Stage stage = (Stage) placeOrderFormContext.getScene().getWindow();
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/CashierDashBoardForm.fxml"))));
         stage.show();
+    }
+
+    public void textFields_Key_Released(KeyEvent keyEvent) {
+        ValidationUtil.validate(map, btnNewCustomer);
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            Object response = ValidationUtil.validate(map, btnNewCustomer);
+            if (response instanceof TextField) {
+                TextField textField = (TextField) response;
+                textField.requestFocus();
+            } else if (response instanceof Boolean) {
+                if (btnNewCustomer.getText().equalsIgnoreCase("Add")) {
+                    saveCustomer();
+                }
+            }
+        }
     }
 }

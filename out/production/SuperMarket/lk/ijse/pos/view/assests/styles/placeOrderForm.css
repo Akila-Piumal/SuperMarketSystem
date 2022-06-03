@@ -9,3 +9,7 @@
 .table-column{
     -fx-alignment: CENTER;
 }
+
+.text-field{
+    -fx-border-radius: 10;
+}
