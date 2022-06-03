@@ -64,7 +64,6 @@
          </cursor>
       </JFXButton>
       <JFXTextField fx:id="txtDescription" labelFloat="true" layoutX="196.0" layoutY="211.0" promptText="Description" />
-      <JFXTextField fx:id="txtPackSize" labelFloat="true" layoutX="389.0" layoutY="211.0" prefHeight="31.0" prefWidth="103.0" promptText="Pack Size" />
       <JFXTextField fx:id="txtUnitPrice" labelFloat="true" layoutX="665.0" layoutY="211.0" prefHeight="31.0" prefWidth="123.0" promptText="Unit Price" />
       <JFXTextField fx:id="txtQtyOnHand" labelFloat="true" layoutX="529.0" layoutY="211.0" prefHeight="31.0" prefWidth="103.0" promptText="Qty On Hand" />
       <JFXTextField fx:id="txtQTY" labelFloat="true" layoutX="942.0" layoutY="211.0" prefHeight="31.0" prefWidth="94.0" promptText="QTY">
@@ -73,13 +72,14 @@
          </font>
       </JFXTextField>
       <JFXTextField fx:id="txtDiscount" labelFloat="true" layoutX="806.0" layoutY="211.0" prefHeight="31.0" prefWidth="115.0" promptText="Discount" />
-      <TableView fx:id="tblOrderDetails" layoutX="52.0" layoutY="286.0" prefHeight="346.0" prefWidth="1134.0">
+      <TableView fx:id="tblOrderDetails" layoutX="36.0" layoutY="289.0" prefHeight="346.0" prefWidth="1134.0">
          <columns>
-            <TableColumn prefWidth="177.0" text="Code" />
-            <TableColumn minWidth="0.0" prefWidth="289.0" text="Description" />
-            <TableColumn prefWidth="168.0" text="Unit Price" />
-            <TableColumn prefWidth="269.0" text="QTY" />
-            <TableColumn prefWidth="230.0" text="Remove" />
+            <TableColumn prefWidth="146.0" text="Code" />
+            <TableColumn minWidth="0.0" prefWidth="255.0" text="Description" />
+            <TableColumn prefWidth="172.0" text="Qty On Hand" />
+            <TableColumn prefWidth="170.0" text="Unit Price" />
+            <TableColumn prefWidth="208.0" text="QTY" />
+            <TableColumn prefWidth="182.0" text="Remove" />
          </columns>
       </TableView>
       <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="1076.0" layoutY="197.0" onAction="#btnUpdateItemDetailsOnAction" style="-fx-background-color: #12CBC4;" text="Update" textFill="WHITE">
@@ -91,7 +91,7 @@
          </cursor>
       </JFXButton>
       <JFXTextField fx:id="txtItemCode" labelFloat="true" layoutX="43.0" layoutY="211.0" prefHeight="31.0" prefWidth="115.0" promptText="Item Code" />
-      <JFXButton fx:id="btnConfirm" buttonType="RAISED" layoutX="1022.0" layoutY="693.0" onAction="#btnConfirmEditsOnAction" style="-fx-background-color: #55E6C1; -fx-background-radius: 8;" text="Confirm Edits" textFill="WHITE">
+      <JFXButton fx:id="btnConfirm" buttonType="RAISED" layoutX="981.0" layoutY="699.0" onAction="#btnConfirmEditsOnAction" style="-fx-background-color: #55E6C1; -fx-background-radius: 8;" text="Confirm Edits" textFill="WHITE">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
@@ -99,7 +99,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="839.0" layoutY="693.0" onAction="#btnCancelOrderOnAction" style="-fx-background-color: #ff7979; -fx-background-radius: 8;" text="Cancel Order" textFill="WHITE">
+      <JFXButton fx:id="btnCancelOrder" buttonType="RAISED" layoutX="52.0" layoutY="699.0" onAction="#btnCancelOrderOnAction" style="-fx-background-color: #ff7979; -fx-background-radius: 8;" text="Cancel Order" textFill="WHITE">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
@@ -107,32 +107,32 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <Label layoutX="44.0" layoutY="648.0" text="Price">
+      <Label layoutX="481.0" layoutY="641.0" text="Price">
          <font>
             <Font name="System Bold" size="27.0" />
          </font>
       </Label>
-      <Label layoutX="44.0" layoutY="741.0" text="Total" textFill="#30336b">
+      <Label layoutX="481.0" layoutY="734.0" text="Total" textFill="#30336b">
          <font>
             <Font name="System Bold" size="39.0" />
          </font>
       </Label>
-      <Label layoutX="44.0" layoutY="695.0" text="Discount">
+      <Label layoutX="481.0" layoutY="688.0" text="Discount">
          <font>
             <Font name="System Bold" size="27.0" />
          </font>
       </Label>
-      <Label fx:id="lblPrice" alignment="CENTER" layoutX="196.0" layoutY="650.0" prefHeight="17.0" prefWidth="123.0" style="-fx-border-radius: 6; -fx-border-color: black;">
+      <Label fx:id="lblPrice" alignment="CENTER" layoutX="633.0" layoutY="643.0" prefHeight="36.0" prefWidth="151.0" style="-fx-border-radius: 6; -fx-border-color: black;">
          <font>
             <Font name="System Bold" size="23.0" />
          </font>
       </Label>
-      <Label fx:id="lblDiscount" alignment="CENTER" layoutX="196.0" layoutY="699.0" prefHeight="17.0" prefWidth="123.0" style="-fx-border-radius: 6; -fx-border-color: black;">
+      <Label fx:id="lblDiscount" alignment="CENTER" layoutX="633.0" layoutY="692.0" prefHeight="36.0" prefWidth="151.0" style="-fx-border-radius: 6; -fx-border-color: black;">
          <font>
             <Font name="System Bold" size="23.0" />
          </font>
       </Label>
-      <Label fx:id="lblTotalPrice" alignment="CENTER" layoutX="196.0" layoutY="745.0" prefHeight="48.0" prefWidth="123.0" style="-fx-border-radius: 6; -fx-border-color: #30336b;" textFill="#30336b">
+      <Label fx:id="lblTotalPrice" alignment="CENTER" layoutX="633.0" layoutY="738.0" prefHeight="48.0" prefWidth="151.0" style="-fx-border-radius: 6; -fx-border-color: #30336b;" textFill="#30336b">
          <font>
             <Font name="System Bold" size="23.0" />
          </font>

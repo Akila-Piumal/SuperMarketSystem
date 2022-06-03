@@ -3,18 +3,9 @@ package lk.ijse.pos.bo.Custom.impl;
 import lk.ijse.pos.bo.Custom.ManageOrderBO;
 import lk.ijse.pos.dao.DAOFactory;
 import lk.ijse.pos.dao.SuperDAO;
-import lk.ijse.pos.dao.custom.CustomerDAO;
-import lk.ijse.pos.dao.custom.ItemDAO;
-import lk.ijse.pos.dao.custom.OrderDAO;
-import lk.ijse.pos.dao.custom.QueryDAO;
-import lk.ijse.pos.dto.CustomDTO;
-import lk.ijse.pos.dto.CustomerDTO;
-import lk.ijse.pos.dto.ItemDTO;
-import lk.ijse.pos.dto.OrderDTO;
-import lk.ijse.pos.entity.Custom;
-import lk.ijse.pos.entity.Customer;
-import lk.ijse.pos.entity.Item;
-import lk.ijse.pos.entity.Orders;
+import lk.ijse.pos.dao.custom.*;
+import lk.ijse.pos.dto.*;
+import lk.ijse.pos.entity.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,6 +16,7 @@ public class ManageOrderBOImpl implements ManageOrderBO {
     private final OrderDAO orderDAO = (OrderDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDER);
     private final QueryDAO queryDAO = (QueryDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.QUERYDAO);
     private final ItemDAO itemDAO = (ItemDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
+    private final OrderDetailDAO orderDetailDAO = (OrderDetailDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDERDETAIL);
 
     @Override
     public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
@@ -50,22 +42,40 @@ public class ManageOrderBOImpl implements ManageOrderBO {
         ArrayList<Custom> all = queryDAO.getOrderDetails(orderID);
         ArrayList<CustomDTO> orderDetails=new ArrayList<>();
         for (Custom detail : all) {
-            orderDetails.add(new CustomDTO(detail.getItemCode(),detail.getDescription(),detail.getUnitPrice(),detail.getQty()));
+            orderDetails.add(new CustomDTO(detail.getItemCode(),detail.getDescription(),detail.getQtyOnHand(),detail.getUnitPrice(),detail.getQty()));
         }
         return orderDetails;
     }
 
     @Override
-    public boolean updateItemDetails(String itemCode, int qty) throws SQLException, ClassNotFoundException {
-        Item item = itemDAO.search(itemCode);
-        item.setQtyOnHand(qty+item.getQtyOnHand());
-        return itemDAO.update(item);
+    public boolean updateItemDetails(String itemCode, int qtyOnHand) throws SQLException, ClassNotFoundException {
+        return itemDAO.updateQtyOnHand(itemCode,qtyOnHand);
     }
 
     @Override
     public ItemDTO getItemDetails(String itemCode) throws SQLException, ClassNotFoundException {
         Item item = itemDAO.search(itemCode);
         return new ItemDTO(item.getItemCode(),item.getDescription(),item.getPackSize(),item.getUnitPrice(),item.getQtyOnHand());
+    }
+
+    @Override
+    public boolean deleteItemFromOrder(String orderID, String itemCode) throws SQLException, ClassNotFoundException {
+        return orderDetailDAO.deleteItemFromOrder(orderID,itemCode);
+    }
+
+    @Override
+    public boolean updateOrderDetails(OrderDetailsDTO dto) throws SQLException, ClassNotFoundException {
+        return orderDetailDAO.update(new OrderDetail(dto.getOrderID(),dto.getItemCode(),dto.getQty(),dto.getDiscount()));
+    }
+
+    @Override
+    public boolean removeOrderAndOrderDetails(String orderID) throws SQLException, ClassNotFoundException {
+        if (orderDetailDAO.delete(orderID)) {
+            if (orderDAO.delete(orderID)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

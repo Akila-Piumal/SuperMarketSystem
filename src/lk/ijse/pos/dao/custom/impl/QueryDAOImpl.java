@@ -18,10 +18,10 @@ public class QueryDAOImpl implements QueryDAO {
 
     @Override
     public ArrayList<Custom> getOrderDetails(String orderID) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtil.executeQuery("select item.ItemCode,item.Description,item.UnitPrice,orderdetail.OrderQTY from orderdetail inner join item on orderdetail.ItemCode = item.ItemCode where orderdetail.OrderID=?", orderID);
+        ResultSet resultSet = SQLUtil.executeQuery("select item.ItemCode,item.Description,item.QtyOnHand,item.UnitPrice,orderdetail.OrderQTY from orderdetail inner join item on orderdetail.ItemCode = item.ItemCode where orderdetail.OrderID=?", orderID);
         ArrayList<Custom> orderDetails=new ArrayList<>();
         while (resultSet.next()){
-            orderDetails.add(new Custom(resultSet.getString(1),resultSet.getString(2),resultSet.getBigDecimal(3),resultSet.getInt(4)));
+            orderDetails.add(new Custom(resultSet.getString(1),resultSet.getString(2),resultSet.getInt(3),resultSet.getBigDecimal(4),resultSet.getInt(5)));
         }
         return orderDetails;
     }

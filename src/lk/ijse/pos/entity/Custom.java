@@ -33,6 +33,14 @@ public class Custom {
     public Custom() {
     }
 
+    public Custom(String itemCode, String description, int qtyOnHand , BigDecimal unitPrice,  int qty) {
+        this.itemCode = itemCode;
+        this.description = description;
+        this.unitPrice = unitPrice;
+        this.qtyOnHand = qtyOnHand;
+        this.qty = qty;
+    }
+
     public Custom(String itemCode, String description, BigDecimal unitPrice, int qtyOnHand, int orderCount, double total) {
         this.itemCode = itemCode;
         this.description = description;

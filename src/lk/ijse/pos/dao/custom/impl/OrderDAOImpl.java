@@ -26,8 +26,8 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public boolean delete(String s) throws SQLException, ClassNotFoundException {
-        return false;
+    public boolean delete(String orderID) throws SQLException, ClassNotFoundException {
+        return SQLUtil.executeUpdate("DELETE FROM orders WHERE OrderID=?",orderID);
     }
 
     @Override

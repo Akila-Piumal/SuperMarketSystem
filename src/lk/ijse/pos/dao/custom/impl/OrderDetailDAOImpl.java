@@ -19,13 +19,13 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
     }
 
     @Override
-    public boolean update(OrderDetail dto) throws SQLException, ClassNotFoundException {
-        return false;
+    public boolean update(OrderDetail entity) throws SQLException, ClassNotFoundException {
+        return SQLUtil.executeUpdate("UPDATE orderdetail SET OrderQTY=? ,Discount=? WHERE OrderID=? AND ItemCode=?",entity.getQty(),entity.getDiscount(),entity.getOrderID(),entity.getItemCode());
     }
 
     @Override
-    public boolean delete(String s) throws SQLException, ClassNotFoundException {
-        return false;
+    public boolean delete(String orderID) throws SQLException, ClassNotFoundException {
+        return SQLUtil.executeUpdate("DELETE FROM orderdetail WHERE OrderID=?",orderID);
     }
 
     @Override
@@ -41,5 +41,10 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
     @Override
     public OrderDetail search(String s) throws SQLException, ClassNotFoundException {
         return null;
+    }
+
+    @Override
+    public boolean deleteItemFromOrder(String orderID, String itemCode) throws SQLException, ClassNotFoundException {
+        return SQLUtil.executeUpdate("DELETE FROM orderdetail WHERE OrderID=? AND ItemCode=?",orderID,itemCode);
     }
 }

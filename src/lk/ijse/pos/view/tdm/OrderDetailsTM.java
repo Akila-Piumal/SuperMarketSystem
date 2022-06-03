@@ -14,6 +14,14 @@ public class OrderDetailsTM {
     public OrderDetailsTM() {
     }
 
+    public OrderDetailsTM(String itemCode, String description, int qtyOnHand, BigDecimal unitPrice, int qty) {
+        this.itemCode = itemCode;
+        this.description = description;
+        this.qtyOnHand = qtyOnHand;
+        this.unitPrice = unitPrice;
+        this.qty = qty;
+    }
+
     public OrderDetailsTM(String itemCode, String description, int qtyOnHand, BigDecimal unitPrice, double discount, int qty, double total) {
         this.itemCode = itemCode;
         this.description = description;

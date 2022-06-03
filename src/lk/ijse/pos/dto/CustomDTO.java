@@ -33,6 +33,14 @@ public class CustomDTO {
     public CustomDTO() {
     }
 
+    public CustomDTO(String itemCode, String description,  int qtyOnHand,BigDecimal unitPrice, int qty) {
+        this.itemCode = itemCode;
+        this.description = description;
+        this.unitPrice = unitPrice;
+        this.qtyOnHand = qtyOnHand;
+        this.qty = qty;
+    }
+
     public CustomDTO(String itemCode, String description, BigDecimal unitPrice, int qtyOnHand, int orderCount, double total) {
         this.itemCode = itemCode;
         this.description = description;

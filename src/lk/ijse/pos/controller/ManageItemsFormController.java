@@ -162,6 +162,11 @@ public class ManageItemsFormController {
                 if (saved) {
                     new Alert(Alert.AlertType.INFORMATION, "Registered Item!").show();
                     tblItemDetails.getItems().add(new ItemTM(txtItemCode.getText(), txtDescription.getText(), txtPackSize.getText(), new BigDecimal(txtUnitPrice.getText()), Integer.parseInt(txtQtyOnHand.getText())));
+                    txtItemCode.setText(generateNewItemCode());
+                    txtDescription.clear();
+                    txtPackSize.clear();
+                    txtUnitPrice.clear();
+                    txtQtyOnHand.clear();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
