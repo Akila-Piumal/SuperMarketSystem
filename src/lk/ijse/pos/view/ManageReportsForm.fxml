@@ -15,7 +15,7 @@
    <children>
       <AnchorPane fx:id="SideContext" layoutX="-2.0" prefHeight="819.0" prefWidth="368.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" height="805.0" layoutY="1.0" stroke="WHITE" strokeType="INSIDE" width="368.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="800.0" layoutY="1.0" stroke="WHITE" strokeType="INSIDE" width="368.0">
                <fill>
                   <LinearGradient endX="0.2524271844660194" endY="0.2281553398058252" startX="1.0" startY="0.5970873786407768">
                      <stops>
@@ -60,7 +60,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="reportsFormContext" layoutX="366.0" prefHeight="825.0" prefWidth="832.0">
+      <AnchorPane fx:id="reportsFormContext" layoutX="366.0" layoutY="10.0" prefHeight="800.0" prefWidth="832.0">
          <children>
             <Label layoutX="162.0" layoutY="45.0" text="MANAGE REPORTS" underline="true">
                <font>
@@ -75,6 +75,11 @@
                   </LinearGradient>
                </textFill>
             </Label>
+            <ImageView fitHeight="615.0" fitWidth="742.0" layoutX="35.0" layoutY="131.0" pickOnBounds="true">
+               <image>
+                  <Image url="@assests/images/3889249.jpg" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

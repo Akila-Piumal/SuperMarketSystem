@@ -3,29 +3,54 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="CashierDashBoardContext" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.controller.CashierDashBoardFormController">
+<AnchorPane fx:id="CashierDashBoardContext" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #c7ecee;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.controller.CashierDashBoardFormController">
    <children>
-      <Label layoutX="462.0" layoutY="14.0" text="WELCOME" textFill="#bc0606">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="800.0" layoutX="2.0" layoutY="-3.0" stroke="WHITE" strokeType="INSIDE" width="1200.0">
+         <fill>
+            <LinearGradient endX="0.2184466019417476" endY="0.07281553398058252" startX="0.7378640776699029" startY="1.0">
+               <stops>
+                  <Stop color="WHITE" />
+                  <Stop color="#5bcad0" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Label layoutX="465.0" layoutY="5.0" text="WELCOME" underline="true">
          <font>
-            <Font name="System Bold" size="56.0" />
+            <Font name="System Bold Italic" size="61.0" />
          </font>
+         <textFill>
+            <LinearGradient endX="0.4223300970873786" endY="1.0" startX="0.4854368932038835" startY="0.11650485436893199">
+               <stops>
+                  <Stop color="#767b90" />
+                  <Stop color="#5b6bcf" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
       </Label>
-      <Button layoutX="146.0" layoutY="347.0" mnemonicParsing="false" onAction="#btnPlaceOrderFormOnAction" text="Place Order">
-         <font>
-            <Font name="System Bold" size="50.0" />
-         </font>
-      </Button>
-      <Button layoutX="581.0" layoutY="347.0" mnemonicParsing="false" onAction="#btnManageOrdersOnAction" text="Manage Orders">
-         <font>
-            <Font name="System Bold" size="50.0" />
-         </font>
-      </Button>
-      <Button layoutX="911.0" layoutY="607.0" mnemonicParsing="false" onAction="#logOutOnAction" style="-fx-background-color: #ff7979; -fx-background-radius: 8;" text="LOG OUT" textFill="WHITE">
+      <Button layoutX="952.0" layoutY="700.0" mnemonicParsing="false" onAction="#logOutOnAction" style="-fx-background-color: #ff7979; -fx-background-radius: 8;" text="LOG OUT" textFill="WHITE">
          <font>
             <Font name="System Bold" size="32.0" />
          </font>
       </Button>
+      <AnchorPane layoutX="113.0" layoutY="113.0" prefHeight="576.0" prefWidth="979.0" style="-fx-background-radius: 30; -fx-background-color: white;">
+         <children>
+            <Button layoutX="336.0" layoutY="123.0" mnemonicParsing="false" onAction="#btnManageOrdersOnAction" prefHeight="75.0" prefWidth="308.0" style="-fx-background-color: #7bed9f; -fx-background-radius: 15;" text="Manage Order" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="35.0" />
+               </font>
+            </Button>
+            <Button layoutX="338.0" layoutY="264.0" mnemonicParsing="false" onAction="#btnPlaceOrderFormOnAction" prefHeight="75.0" prefWidth="304.0" style="-fx-background-color: #7bed9f; -fx-background-radius: 15;" text="Place Order" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="35.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

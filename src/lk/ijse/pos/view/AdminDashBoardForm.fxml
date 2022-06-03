@@ -3,29 +3,54 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AdminDashBoardContext" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.controller.AdminDashBoardFormController">
+<AnchorPane fx:id="AdminDashBoardContext" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #ced6e0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.controller.AdminDashBoardFormController">
    <children>
-      <Label layoutX="469.0" layoutY="14.0" text="Admin">
+      <AnchorPane layoutX="207.0" layoutY="120.0" prefHeight="576.0" prefWidth="979.0" style="-fx-background-radius: 30; -fx-background-color: white;">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="800.0" layoutX="-207.0" layoutY="-119.0" stroke="WHITE" strokeType="INSIDE" width="1202.0">
+               <fill>
+                  <LinearGradient endX="1.0" endY="0.9563106796116505" startX="0.5922330097087379" startY="1.0">
+                     <stops>
+                        <Stop color="WHITE" />
+                        <Stop color="#1cb5d9" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <Button layoutX="241.0" layoutY="125.0" mnemonicParsing="false" onAction="#btnManageItemsFormOnAction" style="-fx-background-color: #7bed9f; -fx-background-radius: 15;" text="Manage Items" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="38.0" />
+               </font>
+            </Button>
+            <Button layoutX="229.0" layoutY="281.0" mnemonicParsing="false" onAction="#btnManageReportsFormOnAction" style="-fx-background-color: #7bed9f; -fx-background-radius: 15;" text="System Reports" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="38.0" />
+               </font>
+            </Button>
+            <Button layoutX="763.0" layoutY="516.0" mnemonicParsing="false" onAction="#logOutOnAction" style="-fx-background-color: #ff7979; -fx-background-radius: 8;" text="LOG OUT" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <Label layoutX="475.0" layoutY="15.0" text="WELCOME" underline="true">
          <font>
-            <Font name="System Bold" size="84.0" />
+            <Font name="System Bold Italic" size="61.0" />
          </font>
+         <textFill>
+            <LinearGradient endX="0.4223300970873786" endY="1.0" startX="0.4854368932038835" startY="0.11650485436893199">
+               <stops>
+                  <Stop color="#767b90" />
+                  <Stop color="#5b6bcf" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
       </Label>
-      <Button layoutX="158.0" layoutY="297.0" mnemonicParsing="false" onAction="#btnManageItemsFormOnAction" text="Manage Items">
-         <font>
-            <Font name="System Bold" size="42.0" />
-         </font>
-      </Button>
-      <Button layoutX="578.0" layoutY="290.0" mnemonicParsing="false" onAction="#btnManageReportsFormOnAction" text="System Reports">
-         <font>
-            <Font name="System Bold" size="42.0" />
-         </font>
-      </Button>
-      <Button layoutX="921.0" layoutY="617.0" mnemonicParsing="false" onAction="#logOutOnAction" style="-fx-background-color: #ff7979; -fx-background-radius: 8;" text="LOG OUT" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="32.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>
