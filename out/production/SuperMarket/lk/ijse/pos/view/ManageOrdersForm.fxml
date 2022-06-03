@@ -66,7 +66,7 @@
       <JFXTextField fx:id="txtDescription" labelFloat="true" layoutX="196.0" layoutY="211.0" promptText="Description" />
       <JFXTextField fx:id="txtUnitPrice" labelFloat="true" layoutX="665.0" layoutY="211.0" prefHeight="31.0" prefWidth="123.0" promptText="Unit Price" />
       <JFXTextField fx:id="txtQtyOnHand" labelFloat="true" layoutX="529.0" layoutY="211.0" prefHeight="31.0" prefWidth="103.0" promptText="Qty On Hand" />
-      <JFXTextField fx:id="txtQTY" labelFloat="true" layoutX="942.0" layoutY="211.0" prefHeight="31.0" prefWidth="94.0" promptText="QTY">
+      <JFXTextField fx:id="txtQTY" labelFloat="true" layoutX="942.0" layoutY="211.0" onKeyReleased="#textFields_Key_Released" prefHeight="31.0" prefWidth="94.0" promptText="QTY">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

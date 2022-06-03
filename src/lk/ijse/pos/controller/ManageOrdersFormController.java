@@ -22,13 +22,16 @@ import lk.ijse.pos.dto.CustomerDTO;
 import lk.ijse.pos.dto.OrderDTO;
 import lk.ijse.pos.dto.OrderDetailsDTO;
 import lk.ijse.pos.util.Animation;
+import lk.ijse.pos.util.ValidationUtil;
 import lk.ijse.pos.view.tdm.OrderDetailsTM;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 public class ManageOrdersFormController {
     public JFXComboBox<String> cmbOrderID;
@@ -50,6 +53,7 @@ public class ManageOrdersFormController {
     public JFXButton btnConfirm;
     public ArrayList<OrderDetailsTM> removedItemList = new ArrayList<>();
     public JFXButton btnCancelOrder;
+    LinkedHashMap<TextField, Pattern> map = new LinkedHashMap<>();
 
     ManageOrderBO manageOrderBO = (ManageOrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.MANAGEORDER);
 
@@ -67,6 +71,10 @@ public class ManageOrdersFormController {
         btnUpdate.setDisable(true);
         btnConfirm.setDisable(true);
         btnCancelOrder.setDisable(true);
+
+        Pattern qtyPattern = Pattern.compile("[0-9]{1,}$");
+
+        map.put(txtQTY, qtyPattern);
 
         tblOrderDetails.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("itemCode"));
         tblOrderDetails.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("description"));
@@ -168,7 +176,7 @@ public class ManageOrdersFormController {
 
     }
 
-    private void clearTextFields(){
+    private void clearTextFields() {
         txtItemCode.clear();
         txtDescription.clear();
         txtQtyOnHand.clear();
@@ -270,6 +278,10 @@ public class ManageOrdersFormController {
     }
 
     public void btnUpdateItemDetailsOnAction(ActionEvent actionEvent) {
+        updateItem();
+    }
+
+    private void updateItem() {
         OrderDetailsTM orderDetailsTM = tblOrderDetails.getItems().stream().filter(detail -> detail.getItemCode().equals(txtItemCode.getText())).findFirst().get();
         int oldQty = orderDetailsTM.getQty();
         int newQty = Integer.parseInt(txtQTY.getText());
@@ -287,6 +299,9 @@ public class ManageOrdersFormController {
         cmbOrderID.setDisable(true);
         cmbSelectCustomer.setDisable(true);
         calculateTotalAndDiscount();
+        btnUpdate.setDisable(true);
+        tblOrderDetails.requestFocus();
+        txtQTY.setStyle("-fx-border-color: white");
     }
 
     public void btnConfirmEditsOnAction(ActionEvent actionEvent) {
@@ -354,6 +369,18 @@ public class ManageOrdersFormController {
         }
     }
 
+    public void textFields_Key_Released(KeyEvent keyEvent) {
+        ValidationUtil.validate(map, btnUpdate);
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            Object response = ValidationUtil.validate(map, btnUpdate);
+            if (response instanceof TextField) {
+                TextField textField = (TextField) response;
+                textField.requestFocus();
+            } else if (response instanceof Boolean) {
+                updateItem();
+            }
+        }
+    }
 }
 
 
