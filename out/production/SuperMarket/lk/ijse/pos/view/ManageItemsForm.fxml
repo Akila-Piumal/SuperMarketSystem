@@ -67,22 +67,22 @@
             <Font name="Eras Light ITC" size="34.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtDescription" labelFloat="true" layoutX="33.0" layoutY="361.0" prefHeight="51.0" prefWidth="237.0" promptText="Description" unFocusColor="#30336b">
+      <JFXTextField fx:id="txtDescription" labelFloat="true" layoutX="33.0" layoutY="361.0" onKeyReleased="#textFields_Key_Released" prefHeight="51.0" prefWidth="237.0" promptText="Description" unFocusColor="#30336b">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="txtPackSize" labelFloat="true" layoutX="33.0" layoutY="446.0" prefHeight="51.0" prefWidth="237.0" promptText="Pack Size" unFocusColor="#30336b">
+      <JFXTextField fx:id="txtPackSize" labelFloat="true" layoutX="33.0" layoutY="446.0" onKeyReleased="#textFields_Key_Released" prefHeight="51.0" prefWidth="237.0" promptText="Pack Size" unFocusColor="#30336b">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="txtUnitPrice" labelFloat="true" layoutX="33.0" layoutY="601.0" prefHeight="51.0" prefWidth="237.0" promptText="Unit Price" unFocusColor="#30336b">
+      <JFXTextField fx:id="txtUnitPrice" labelFloat="true" layoutX="33.0" layoutY="601.0" onKeyReleased="#textFields_Key_Released" prefHeight="51.0" prefWidth="237.0" promptText="Unit Price" unFocusColor="#30336b">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="txtQtyOnHand" labelFloat="true" layoutX="33.0" layoutY="524.0" prefHeight="51.0" prefWidth="237.0" promptText="Qty On Hand" unFocusColor="#30336b">
+      <JFXTextField fx:id="txtQtyOnHand" labelFloat="true" layoutX="33.0" layoutY="524.0" onKeyReleased="#textFields_Key_Released" prefHeight="51.0" prefWidth="237.0" promptText="Qty On Hand" unFocusColor="#30336b">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

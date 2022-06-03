@@ -2,7 +2,6 @@ package lk.ijse.pos.controller;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,11 +11,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.util.Duration;
 import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.Custom.LoginBO;
-import lk.ijse.pos.bo.SuperBO;
 import lk.ijse.pos.util.Animation;
 
 import java.io.IOException;
@@ -31,7 +27,7 @@ public class LoginFormController {
 
     LoginBO loginBO = (LoginBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.LOGIN);
 
-    public void initialize(){
+    public void initialize() {
         txtPassword.textProperty().bind(pwdPassword.textProperty());
         txtPassword.visibleProperty().bind(cbShowPassword.selectedProperty());
         pwdPassword.visibleProperty().bind(cbShowPassword.selectedProperty().not());
@@ -43,7 +39,7 @@ public class LoginFormController {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             if (txtUserName.getText() != null) {
                 pwdPassword.requestFocus();
-                if (pwdPassword.getText().length()>0){
+                if (pwdPassword.getText().length() > 0) {
                     loginToSystem();
                 }
             }
@@ -57,19 +53,19 @@ public class LoginFormController {
     private void loginToSystem() {
         try {
             if (loginBO.loginToSystem(txtUserName.getText(), pwdPassword.getText())) {
-                if (txtUserName.getText().equalsIgnoreCase("Cashier")){
+                if (txtUserName.getText().equalsIgnoreCase("Cashier")) {
                     //load cashier ui
                     Stage stage = (Stage) loginFormContext.getScene().getWindow();
                     stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/CashierDashBoardForm.fxml"))));
                     stage.show();
-                }else if (txtUserName.getText().equalsIgnoreCase("Admin")){
+                } else if (txtUserName.getText().equalsIgnoreCase("Admin")) {
                     // load admin ui
                     Stage stage = (Stage) loginFormContext.getScene().getWindow();
                     stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/AdminDashBoardForm.fxml"))));
                     stage.show();
                 }
-            }else{
-                new Alert(Alert.AlertType.ERROR,"Invalid User name or password.").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Invalid User name or password.").show();
             }
 
         } catch (SQLException e) {

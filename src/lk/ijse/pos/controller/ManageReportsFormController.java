@@ -1,6 +1,5 @@
 package lk.ijse.pos.controller;
 
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,12 +7,9 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.util.Duration;
 import lk.ijse.pos.util.Animation;
 
 import java.io.IOException;
-import java.text.DateFormat;
 
 public class ManageReportsFormController {
 
@@ -22,7 +18,7 @@ public class ManageReportsFormController {
     public AnchorPane SideContext;
     public AnchorPane manageReportsFormContext;
 
-    public void initialize(){
+    public void initialize() {
         Animation.windowAnimation(manageReportsFormContext);
     }
 

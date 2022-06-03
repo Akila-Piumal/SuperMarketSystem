@@ -3,7 +3,6 @@ package lk.ijse.pos.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import javafx.animation.FadeTransition;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -13,8 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.util.Duration;
 import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.Custom.PlaceOrderBO;
 import lk.ijse.pos.dto.CustomerDTO;
@@ -41,7 +38,6 @@ public class PlaceOrderFormController {
     public JFXTextField txtCity;
     public JFXTextField txtProvince;
     public JFXTextField txtPostalCode;
-
     public JFXComboBox<String> cmbItemCode;
     public JFXTextField txtDescription;
     public JFXTextField txtPackSize;
@@ -61,7 +57,6 @@ public class PlaceOrderFormController {
     public JFXButton btnAddToList;
     public AnchorPane placeOrderFormContext;
 
-
     PlaceOrderBO placeOrderBO = (PlaceOrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PLACEORDER);
 
     public void initialize() {
@@ -75,6 +70,7 @@ public class PlaceOrderFormController {
         tblOrderDetails.getColumns().get(5).setCellValueFactory(new PropertyValueFactory("qty"));
         tblOrderDetails.getColumns().get(6).setCellValueFactory(new PropertyValueFactory("total"));
         TableColumn<OrderDetailsTM, Button> lastCol = (TableColumn<OrderDetailsTM, Button>) tblOrderDetails.getColumns().get(7);
+
         lastCol.setCellValueFactory(param -> {
             Button btnRemove = new Button("Remove");
             btnRemove.setOnAction(event -> {
@@ -107,11 +103,11 @@ public class PlaceOrderFormController {
         txtUnitPrice.setEditable(false);
         txtDiscount.setEditable(false);
         txtQTY.setDisable(true);
-
         lblOrderID.setText(generateNewOrderID());
         lblDate.setText(LocalDate.now().toString());
 
         loadAllCustomerIds();
+
         loadAllItemCodes();
 
         //ADD Listener to the Customer ID combo box
@@ -353,7 +349,7 @@ public class PlaceOrderFormController {
         clearAll();
     }
 
-    private void clearAll(){
+    private void clearAll() {
         cmbCustomerID.getSelectionModel().clearSelection();
         cmbItemCode.getSelectionModel().clearSelection();
         tblOrderDetails.getItems().clear();
@@ -386,9 +382,9 @@ public class PlaceOrderFormController {
     }
 
     public void btnCancelOrderOnAction(ActionEvent actionEvent) {
-        Alert alert=new Alert(Alert.AlertType.WARNING,"Are you sure to cancel order !",ButtonType.YES,ButtonType.NO);
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Are you sure to cancel order !", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> buttonType = alert.showAndWait();
-        if (buttonType.get().equals(ButtonType.YES)){
+        if (buttonType.get().equals(ButtonType.YES)) {
             clearAll();
         }
     }

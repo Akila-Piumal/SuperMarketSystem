@@ -10,6 +10,9 @@
     -fx-font-weight: bold;
     -fx-font-size: 21;
 }
+.text-field{
+    -fx-border-radius: 10;
+}
 
 #ancherPhane{
     -fx-background-color: white;

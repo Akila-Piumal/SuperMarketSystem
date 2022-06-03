@@ -1,10 +1,8 @@
 package lk.ijse.pos.controller;
 
-import javafx.animation.FadeTransition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
 import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.Custom.LeastMovableItemsBO;
 import lk.ijse.pos.dto.CustomDTO;
@@ -15,12 +13,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class LeastMovableItemsReportFormController {
+    private final LeastMovableItemsBO leastMovableItemsBO = (LeastMovableItemsBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.LEASTMOVABLE);
     public TableView<MovableTM> tblLeastMovable;
-
-    private final LeastMovableItemsBO leastMovableItemsBO= (LeastMovableItemsBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.LEASTMOVABLE);
     public AnchorPane leastMovableFormContext;
 
-    public void initialize(){
+    public void initialize() {
         Animation.windowAnimation(leastMovableFormContext);
 
         tblLeastMovable.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("itemCode"));
@@ -37,7 +34,7 @@ public class LeastMovableItemsReportFormController {
         try {
             ArrayList<CustomDTO> leastMovableItemsDetails = leastMovableItemsBO.getLeastMovableItemsDetails();
             for (CustomDTO dto : leastMovableItemsDetails) {
-                tblLeastMovable.getItems().add(new MovableTM(dto.getItemCode(),dto.getDescription(),dto.getUnitPrice(),dto.getQtyOnHand(),dto.getOrderCount(),dto.getTotal()));
+                tblLeastMovable.getItems().add(new MovableTM(dto.getItemCode(), dto.getDescription(), dto.getUnitPrice(), dto.getQtyOnHand(), dto.getOrderCount(), dto.getTotal()));
             }
         } catch (SQLException e) {
             e.printStackTrace();

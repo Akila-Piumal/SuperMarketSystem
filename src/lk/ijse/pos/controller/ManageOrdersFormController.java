@@ -56,50 +56,6 @@ public class ManageOrdersFormController {
     public void initialize() {
         Animation.windowAnimation(manageOrderContext);
 
-        tblOrderDetails.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("itemCode"));
-        tblOrderDetails.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("description"));
-        tblOrderDetails.getColumns().get(2).setCellValueFactory(new PropertyValueFactory("qtyOnHand"));
-        tblOrderDetails.getColumns().get(3).setCellValueFactory(new PropertyValueFactory("unitPrice"));
-        tblOrderDetails.getColumns().get(4).setCellValueFactory(new PropertyValueFactory("qty"));
-        TableColumn<OrderDetailsTM, Button> lastCol = (TableColumn<OrderDetailsTM, Button>) tblOrderDetails.getColumns().get(5);
-        lastCol.setCellValueFactory(param -> {
-            Button btnRemove = new Button("Remove");
-            btnRemove.setOnAction(event -> {
-                Alert alert = new Alert(Alert.AlertType.WARNING, "Are you sure ? ", ButtonType.YES, ButtonType.NO);
-                Optional<ButtonType> buttonType = alert.showAndWait();
-
-                if (buttonType.get().equals(ButtonType.YES)) {
-                    tblOrderDetails.getItems().remove(param.getValue());
-                    tblOrderDetails.getSelectionModel().clearSelection();
-                    removedItemList.add(param.getValue());
-                    btnConfirm.setDisable(false);
-                    btnUpdate.setDisable(true);
-                    txtItemCode.clear();
-                    txtDescription.clear();
-                    txtQtyOnHand.clear();
-                    txtUnitPrice.clear();
-                    txtDiscount.clear();
-                    txtQTY.clear();
-                    cmbOrderID.setDisable(true);
-                    cmbSelectCustomer.setDisable(true);
-                    calculateTotalAndDiscount();
-
-                    if (tblOrderDetails.getItems().isEmpty()){
-                        new Alert(Alert.AlertType.WARNING,"Order is Empty").show();
-                        try {
-                            manageOrderBO.removeOrderAndOrderDetails(cmbOrderID.getValue());
-                            cmbOrderID.getItems().remove(cmbOrderID.getValue());
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        } catch (ClassNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            });
-            return new ReadOnlyObjectWrapper<>(btnRemove);
-        });
-
         txtItemCode.setEditable(false);
         txtDescription.setEditable(false);
         txtQtyOnHand.setEditable(false);
@@ -112,6 +68,48 @@ public class ManageOrdersFormController {
         btnConfirm.setDisable(true);
         btnCancelOrder.setDisable(true);
 
+        tblOrderDetails.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("itemCode"));
+        tblOrderDetails.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("description"));
+        tblOrderDetails.getColumns().get(2).setCellValueFactory(new PropertyValueFactory("qtyOnHand"));
+        tblOrderDetails.getColumns().get(3).setCellValueFactory(new PropertyValueFactory("unitPrice"));
+        tblOrderDetails.getColumns().get(4).setCellValueFactory(new PropertyValueFactory("qty"));
+        TableColumn<OrderDetailsTM, Button> lastCol = (TableColumn<OrderDetailsTM, Button>) tblOrderDetails.getColumns().get(5);
+
+        lastCol.setCellValueFactory(param -> {
+            Button btnRemove = new Button("Remove");
+            btnRemove.setOnAction(event -> {
+                Alert alert = new Alert(Alert.AlertType.WARNING, "Are you sure ? ", ButtonType.YES, ButtonType.NO);
+                Optional<ButtonType> buttonType = alert.showAndWait();
+
+                if (buttonType.get().equals(ButtonType.YES)) {
+                    tblOrderDetails.getItems().remove(param.getValue());
+                    tblOrderDetails.getSelectionModel().clearSelection();
+                    removedItemList.add(param.getValue());
+                    btnConfirm.setDisable(false);
+                    btnUpdate.setDisable(true);
+                    cmbOrderID.setDisable(true);
+                    cmbSelectCustomer.setDisable(true);
+                    clearTextFields();
+                    calculateTotalAndDiscount();
+
+                    if (tblOrderDetails.getItems().isEmpty()) {
+                        new Alert(Alert.AlertType.WARNING, "Order is Empty").show();
+                        try {
+                            manageOrderBO.removeOrderAndOrderDetails(cmbOrderID.getValue());
+                            cmbOrderID.getItems().remove(cmbOrderID.getValue());
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+            });
+            return new ReadOnlyObjectWrapper<>(btnRemove);
+        });
+
+        // Load All Customer IDS
         loadAllCustomerIDS();
 
         // add listener to selectCustomer combo box
@@ -121,13 +119,7 @@ public class ManageOrdersFormController {
             btnSearch.setDisable(false);
             cmbOrderID.setDisable(false);
             btnConfirm.setDisable(true);
-
-            txtItemCode.clear();
-            txtDescription.clear();
-            txtQtyOnHand.clear();
-            txtUnitPrice.clear();
-            txtDiscount.clear();
-            txtQTY.clear();
+            clearTextFields();
 
             try {
                 ArrayList<OrderDTO> eachCustomerOrders = getOrdersForEachCustomer(selectedCustomerID);
@@ -148,14 +140,9 @@ public class ManageOrdersFormController {
             calculateTotalAndDiscount();
             btnConfirm.setDisable(true);
             btnCancelOrder.setDisable(false);
+            clearTextFields();
 
-            txtItemCode.clear();
-            txtDescription.clear();
-            txtQtyOnHand.clear();
-            txtUnitPrice.clear();
-            txtDiscount.clear();
-            txtQTY.clear();
-
+            // Clear Arraylist of removed items from a order
             removedItemList.clear();
         });
 
@@ -165,7 +152,7 @@ public class ManageOrdersFormController {
 
                 btnUpdate.setDisable(false);
 
-                //text fields walata Data tika ganne table eken
+                // set Data to the text fields
                 txtItemCode.setText(selectedOrderDetails.getItemCode());
                 txtDescription.setText(selectedOrderDetails.getDescription());
                 txtQtyOnHand.setText(String.valueOf(selectedOrderDetails.getQtyOnHand()));
@@ -181,19 +168,28 @@ public class ManageOrdersFormController {
 
     }
 
+    private void clearTextFields(){
+        txtItemCode.clear();
+        txtDescription.clear();
+        txtQtyOnHand.clear();
+        txtUnitPrice.clear();
+        txtDiscount.clear();
+        txtQTY.clear();
+    }
+
     private void calculateTotalAndDiscount() {
-        double price=0;
-        double discount=0;
+        double price = 0;
+        double discount = 0;
 
         for (OrderDetailsTM item : tblOrderDetails.getItems()) {
             double oneItemPrice = item.getUnitPrice().doubleValue() * item.getQty();
-            price+=oneItemPrice;
-            double oneItemDiscount=(((item.getUnitPrice().doubleValue())/100)*5) * item.getQty();
-            discount+=oneItemDiscount;
+            price += oneItemPrice;
+            double oneItemDiscount = (((item.getUnitPrice().doubleValue()) / 100) * 5) * item.getQty();
+            discount += oneItemDiscount;
         }
         lblPrice.setText(String.valueOf(BigDecimal.valueOf(price).setScale(2)));
         lblDiscount.setText(String.valueOf(BigDecimal.valueOf(discount).setScale(2)));
-        lblTotalPrice.setText(String.valueOf(BigDecimal.valueOf(price-discount).setScale(2)));
+        lblTotalPrice.setText(String.valueOf(BigDecimal.valueOf(price - discount).setScale(2)));
     }
 
     private void setTableData(String selectedOrderID) {
@@ -286,12 +282,7 @@ public class ManageOrdersFormController {
 
         tblOrderDetails.refresh();
         tblOrderDetails.getSelectionModel().clearSelection();
-        txtItemCode.clear();
-        txtDescription.clear();
-        txtQtyOnHand.clear();
-        txtUnitPrice.clear();
-        txtQTY.clear();
-        txtDiscount.clear();
+        clearTextFields();
         btnConfirm.setDisable(false);
         cmbOrderID.setDisable(true);
         cmbSelectCustomer.setDisable(true);
@@ -319,9 +310,9 @@ public class ManageOrdersFormController {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-
             }
 
+            // remove the items from order that removed in table in UI and update item details
             if (removedItemList != null) {
                 for (OrderDetailsTM orderDetailsTM : removedItemList) {
                     try {
@@ -344,14 +335,13 @@ public class ManageOrdersFormController {
         Optional<ButtonType> buttonType = alert.showAndWait();
         if (buttonType.get().equals(ButtonType.YES)) {
             try {
-                if (tblOrderDetails.getItems()!=null){
+                if (tblOrderDetails.getItems() != null) {
                     for (OrderDetailsTM item : tblOrderDetails.getItems()) {
                         manageOrderBO.updateItemDetails(item.getItemCode(), (item.getQty() + item.getQtyOnHand()));
                     }
                 }
 
                 manageOrderBO.removeOrderAndOrderDetails(cmbOrderID.getValue());
-
                 tblOrderDetails.getItems().clear();
                 cmbOrderID.getItems().remove(cmbOrderID.getValue());
                 cmbOrderID.getSelectionModel().clearSelection();
