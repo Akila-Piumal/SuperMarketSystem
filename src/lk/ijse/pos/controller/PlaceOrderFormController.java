@@ -170,7 +170,6 @@ public class PlaceOrderFormController {
         // ADD Listener to the Item code combo box
         cmbItemCode.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-//                btnAddToList.setDisable(false);
                 txtQTY.setDisable(false);
                 try {
                     if (!placeOrderBO.checkItemIsAvailable(newValue + "")) {
@@ -186,6 +185,7 @@ public class PlaceOrderFormController {
                     txtQtyOnHand.setText((optOrderDetail.isPresent() ? itemDTO.getQtyOnHand() - optOrderDetail.get().getQty() : itemDTO.getQtyOnHand()) + "");
                     double discount = ((itemDTO.getUnitPrice().doubleValue()) / 100) * 5;
                     txtDiscount.setText(String.valueOf(discount));
+                    txtQTY.requestFocus();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } catch (ClassNotFoundException e) {
@@ -204,11 +204,12 @@ public class PlaceOrderFormController {
         //ADD Listener to the Table
         tblOrderDetails.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                cmbItemCode.setDisable(true);
+//                cmbItemCode.setDisable(true);
                 cmbItemCode.setValue(newValue.getItemCode());
                 btnAddToList.setText("Update");
                 txtQtyOnHand.setText(Integer.parseInt(txtQtyOnHand.getText()) + newValue.getQty() + "");
                 txtQTY.setText(newValue.getQty() + "");
+                txtQTY.requestFocus();
             } else {
                 btnAddToList.setText("Add to List");
                 cmbItemCode.setDisable(false);
@@ -354,7 +355,7 @@ public class PlaceOrderFormController {
         for (OrderDetailsTM tm : tblOrderDetails.getItems()) {
             total += tm.getTotal();
         }
-        lblTotalPrice.setText(String.valueOf(total));
+        lblTotalPrice.setText(String.valueOf(BigDecimal.valueOf(total).setScale(2)));
     }
 
     private void calculateDiscount() {
@@ -362,7 +363,7 @@ public class PlaceOrderFormController {
         for (OrderDetailsTM tm : tblOrderDetails.getItems()) {
             discount += tm.getDiscount();
         }
-        lblDiscount.setText(String.valueOf(discount));
+        lblDiscount.setText(String.valueOf(BigDecimal.valueOf(discount).setScale(2)));
     }
 
     private void calculateTotal() {
@@ -370,7 +371,7 @@ public class PlaceOrderFormController {
         for (OrderDetailsTM tm : tblOrderDetails.getItems()) {
             total += tm.getUnitPrice().doubleValue() * tm.getQty();
         }
-        lblPrice.setText(String.valueOf(total));
+        lblPrice.setText(String.valueOf(BigDecimal.valueOf(total).setScale(2)));
     }
 
     public void btnPlaceOrderOnAction(ActionEvent actionEvent) {

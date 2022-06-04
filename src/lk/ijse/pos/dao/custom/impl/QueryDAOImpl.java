@@ -28,7 +28,7 @@ public class QueryDAOImpl implements QueryDAO {
 
     @Override
     public ArrayList<Custom> getDailyIncomeDetails() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtil.executeQuery("SELECT o.OrderDate ,count(OD.OrderID) , SUM((unitPrice*OrderQTY)-Discount) from orders o RIGHT JOIN orderdetail OD ON o.OrderID = OD.OrderID LEFT JOIN item i on OD.ItemCode = i.ItemCode GROUP BY o.OrderDate");
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT o.OrderDate ,count(DISTINCT o.OrderID) , SUM((unitPrice*OrderQTY)-Discount) from orders o RIGHT JOIN orderdetail OD ON o.OrderID = OD.OrderID LEFT JOIN item i on OD.ItemCode = i.ItemCode GROUP BY o.OrderDate ORDER BY o.OrderDate DESC");
         ArrayList<Custom> incomeDetails=new ArrayList<>();
         while (resultSet.next()){
             incomeDetails.add(new Custom(LocalDate.parse(resultSet.getString(1)),resultSet.getInt(2),resultSet.getDouble(3)));
@@ -38,7 +38,7 @@ public class QueryDAOImpl implements QueryDAO {
 
     @Override
     public ArrayList<Custom> getMonthlyIncomeDetails() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtil.executeQuery("SELECT date_format(o.OrderDate,'%Y-%M') ,count(OD.OrderID) , SUM((unitPrice*OrderQTY)-Discount) from orders o RIGHT JOIN orderdetail OD ON o.OrderID = OD.OrderID LEFT JOIN item i on OD.ItemCode = i.ItemCode GROUP BY year(OrderDate),month(OrderDate) order by year(o.OrderDate),month(OrderDate)");
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT date_format(o.OrderDate,'%Y-%M') ,count(DISTINCT o.OrderID) , SUM((unitPrice*OrderQTY)-Discount) from orders o RIGHT JOIN orderdetail OD ON o.OrderID = OD.OrderID LEFT JOIN item i on OD.ItemCode = i.ItemCode GROUP BY year(OrderDate),month(OrderDate) order by year(o.OrderDate) DESC ,month(OrderDate) DESC");
         ArrayList<Custom> incomeDetails=new ArrayList<>();
         while (resultSet.next()){
             incomeDetails.add(new Custom(resultSet.getString(1),resultSet.getInt(2),resultSet.getDouble(3)));
@@ -48,7 +48,7 @@ public class QueryDAOImpl implements QueryDAO {
 
     @Override
     public ArrayList<Custom> getAnnualIncomeDetails() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtil.executeQuery("SELECT year(OrderDate ) ,count(OD.OrderID) , SUM((unitPrice*OrderQTY)-Discount) from orders o RIGHT JOIN orderdetail OD ON o.OrderID = OD.OrderID LEFT JOIN item i on OD.ItemCode = i.ItemCode GROUP BY year(OrderDate) order by year(o.OrderDate)");
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT year(OrderDate ) ,count(DISTINCT o.OrderID) , SUM((unitPrice*OrderQTY)-Discount) from orders o RIGHT JOIN orderdetail OD ON o.OrderID = OD.OrderID LEFT JOIN item i on OD.ItemCode = i.ItemCode GROUP BY year(OrderDate) order by year(o.OrderDate) DESC");
         ArrayList<Custom> incomeDetails=new ArrayList<>();
         while (resultSet.next()){
             incomeDetails.add(new Custom(resultSet.getString(1),resultSet.getInt(2),resultSet.getDouble(3)));
