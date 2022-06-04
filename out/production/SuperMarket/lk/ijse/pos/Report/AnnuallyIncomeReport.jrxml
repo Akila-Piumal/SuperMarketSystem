@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.0.final using JasperReports Library version 6.19.0-646c68931cebf1a58bc65c4359d1f0ca223c5e94  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AnnuallyIncomeReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d31ac78e-038e-41ad-9bb6-250d219e89ea">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="yearAndMonth" class="java.lang.String"/>
+	<field name="orderCount" class="java.lang.Integer"/>
+	<field name="income" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="103" splitType="Stretch">
+			<staticText>
+				<reportElement x="206" y="0" width="142" height="30" uuid="747dbddb-91de-43c3-8123-99e2cbf02a02"/>
+				<textElement textAlignment="Center">
+					<font size="22" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Super Market]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="24" width="555" height="30" uuid="5bdbf6f3-172d-45bd-8680-77776f9bdd7a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[No.185, Kaluthara Road, Mathugama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="66" width="555" height="30" uuid="fef7754f-d886-49c9-9d5d-e4d0415d6d37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[akilapiumal16@gmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="46" width="555" height="30" uuid="6b015618-c09b-4852-95eb-536694eff045"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Tele : 0345618411]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="94" width="555" height="1" uuid="ae136cb4-9e40-4118-84ec-6ca8cf24e937"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="185" height="30" uuid="3966b2c5-3114-4020-92a3-fedf87f6d757">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="23e3cf27-5e99-4a26-af4b-445705c759c4"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Year]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="0" width="185" height="30" uuid="27ce9efa-4cce-4a47-a9f0-22b6b8666d38">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d7a3f1ad-aa16-4dc7-9ce1-14cf3b627f9f"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[order Count]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="0" width="185" height="30" uuid="0bca28ed-b6f3-4db8-a3b6-95adb33dc463">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="68b65d6f-46d4-4954-8742-5a0ea1d2597f"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[income]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="185" height="30" uuid="77ab4c63-cd15-45a1-89e5-655b4dd7f1c6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="23e3cf27-5e99-4a26-af4b-445705c759c4"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{yearAndMonth}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="185" y="0" width="185" height="30" uuid="00211775-003c-4fe9-a398-43cc3d35f171">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d7a3f1ad-aa16-4dc7-9ce1-14cf3b627f9f"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orderCount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="0" width="185" height="30" uuid="90c819e5-887a-48d0-ad3a-efa318d67a14">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="68b65d6f-46d4-4954-8742-5a0ea1d2597f"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{income}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

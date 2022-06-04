@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -21,7 +23,7 @@
             </LinearGradient>
          </fill>
       </Rectangle>
-      <TableView fx:id="tblLeastMovable" layoutX="44.0" layoutY="227.0" prefHeight="496.0" prefWidth="759.0">
+      <TableView fx:id="tblLeastMovable" layoutX="44.0" layoutY="190.0" prefHeight="496.0" prefWidth="759.0">
          <columns>
             <TableColumn prefWidth="101.0" text="Item Code" />
             <TableColumn minWidth="8.0" prefWidth="169.0" text="Description" />
@@ -44,5 +46,13 @@
             </LinearGradient>
          </textFill>
       </Label>
+      <JFXButton buttonType="RAISED" layoutX="670.0" layoutY="728.0" onAction="#btnGetReportOnAction" style="-fx-background-color: #55E6C1; -fx-background-radius: 8;" text="Get Report" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
    </children>
 </AnchorPane>

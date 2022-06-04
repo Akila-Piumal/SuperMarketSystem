@@ -1,5 +1,7 @@
 package lk.ijse.pos.controller;
 
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -8,6 +10,13 @@ import lk.ijse.pos.bo.Custom.MostMovableItemsBO;
 import lk.ijse.pos.dto.CustomDTO;
 import lk.ijse.pos.util.Animation;
 import lk.ijse.pos.view.tdm.MovableTM;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,6 +49,17 @@ public class MostMovableItemsReportFormController {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void btnGetReportOnAction(ActionEvent actionEvent) {
+        ObservableList<MovableTM> tableRecords = tblMostMovable.getItems();
+        try {
+            JasperReport compiledReport = (JasperReport) JRLoader.loadObject(this.getClass().getResource("/lk/ijse/pos/Report/MostMovableReport.jasper"));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(compiledReport, null, new JRBeanCollectionDataSource(tableRecords));
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException e) {
             e.printStackTrace();
         }
     }
