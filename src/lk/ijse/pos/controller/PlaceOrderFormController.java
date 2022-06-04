@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,15 +24,19 @@ import lk.ijse.pos.dto.OrderDetailsDTO;
 import lk.ijse.pos.util.Animation;
 import lk.ijse.pos.util.ValidationUtil;
 import lk.ijse.pos.view.tdm.OrderDetailsTM;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -62,6 +67,7 @@ public class PlaceOrderFormController {
     public JFXButton btnAddToList;
     public AnchorPane placeOrderFormContext;
     LinkedHashMap<TextField, Pattern> map = new LinkedHashMap<>();
+    LinkedHashMap<TextField, Pattern> map2=new LinkedHashMap<>();
 
     PlaceOrderBO placeOrderBO = (PlaceOrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PLACEORDER);
 
@@ -74,6 +80,7 @@ public class PlaceOrderFormController {
         Pattern cityPattern = Pattern.compile("^[A-z0-9]{5,}$");
         Pattern provincePattern = Pattern.compile("^[A-z]{5,}$");
         Pattern postalCodePattern = Pattern.compile("^[0-9]{2,}$");
+        Pattern qtyPattern = Pattern.compile("[0-9]{1,}$");
 
         map.put(txtCustomerName, namePattern);
         map.put(txtCustomerAddress, addressPatten);
@@ -81,6 +88,8 @@ public class PlaceOrderFormController {
         map.put(txtCity, cityPattern);
         map.put(txtProvince, provincePattern);
         map.put(txtPostalCode, postalCodePattern);
+
+        map2.put(txtQTY,qtyPattern);
 
         tblOrderDetails.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("itemCode"));
         tblOrderDetails.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("description"));
@@ -161,7 +170,7 @@ public class PlaceOrderFormController {
         // ADD Listener to the Item code combo box
         cmbItemCode.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                btnAddToList.setDisable(false);
+//                btnAddToList.setDisable(false);
                 txtQTY.setDisable(false);
                 try {
                     if (!placeOrderBO.checkItemIsAvailable(newValue + "")) {
@@ -292,6 +301,10 @@ public class PlaceOrderFormController {
     }
 
     public void btnAddToListOnAction(ActionEvent actionEvent) {
+        addToList();
+    }
+
+    private void addToList() {
         String itemCode = cmbItemCode.getValue();
         String description = txtDescription.getText();
         int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
@@ -332,6 +345,8 @@ public class PlaceOrderFormController {
         calculateFullTotal();
         btnNewCustomer.setDisable(true);
         cmbCustomerID.setDisable(true);
+        btnAddToList.setDisable(true);
+        txtQTY.setStyle("-fx-border-color: white");
     }
 
     private void calculateFullTotal() {
@@ -362,14 +377,41 @@ public class PlaceOrderFormController {
         boolean result = saveOrder(lblOrderID.getText(), LocalDate.now(), cmbCustomerID.getValue(),
                 tblOrderDetails.getItems().stream().map(tm -> new OrderDetailsDTO(lblOrderID.getText(), tm.getItemCode(), tm.getQty(), tm.getDiscount())).collect(Collectors.toList()));
         if (result) {
-            new Alert(Alert.AlertType.INFORMATION, "Order has been placed successfully").show();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Order has been placed successfully." + "\nNeed to Print a Bill ? ", ButtonType.YES, ButtonType.NO);
+            Optional<ButtonType> buttonType = alert.showAndWait();
+            if (buttonType.get().equals(ButtonType.YES)){
+                printTheBill();
+            }
         } else {
-            new Alert(Alert.AlertType.ERROR, "Order has not been placed successfully").show();
+            new Alert(Alert.AlertType.ERROR, "Order has not been placed successfully.").show();
         }
 
         lblOrderID.setText(generateNewOrderID());
 
         clearAll();
+    }
+
+    private void printTheBill() {
+        String custID=cmbCustomerID.getValue();
+        String custName=txtCustomerName.getText();
+        String orderID=lblOrderID.getText();
+        double subTotal=Double.parseDouble(lblTotalPrice.getText());
+
+        HashMap paramMap=new HashMap();
+        paramMap.put("CustomerID",custID);
+        paramMap.put("name",custName);
+        paramMap.put("orderID",orderID);
+        paramMap.put("subTotal",subTotal);
+
+        ObservableList<OrderDetailsTM> tableRecords = tblOrderDetails.getItems();
+
+        try {
+            JasperReport compiledReport= (JasperReport) JRLoader.loadObject(this.getClass().getResource("/lk/ijse/pos/Report/PlaceOrder.jasper"));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(compiledReport, paramMap, new JRBeanCollectionDataSource(tableRecords));
+            JasperViewer.viewReport(jasperPrint,false);
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
     }
 
     private void clearAll() {
@@ -429,6 +471,19 @@ public class PlaceOrderFormController {
                 if (btnNewCustomer.getText().equalsIgnoreCase("Add")) {
                     saveCustomer();
                 }
+            }
+        }
+    }
+
+    public void key_released_on_qty(KeyEvent keyEvent) {
+        ValidationUtil.validate(map2,btnAddToList);
+        if (keyEvent.getCode()==KeyCode.ENTER){
+            Object response = ValidationUtil.validate(map2, btnAddToList);
+            if (response instanceof TextField){
+                TextField textField= (TextField) response;
+                textField.requestFocus();
+            }else if (response instanceof Boolean){
+                addToList();
             }
         }
     }

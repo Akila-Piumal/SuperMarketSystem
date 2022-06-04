@@ -13,9 +13,9 @@
 
 <AnchorPane fx:id="manageReportsFormContext" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.controller.ManageReportsFormController">
    <children>
-      <AnchorPane fx:id="SideContext" layoutX="-2.0" prefHeight="819.0" prefWidth="368.0">
+      <AnchorPane fx:id="SideContext" layoutX="-2.0" prefHeight="800.0" prefWidth="368.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" height="800.0" layoutY="1.0" stroke="WHITE" strokeType="INSIDE" width="368.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="800.0" layoutY="3.0" stroke="WHITE" strokeType="INSIDE" width="368.0">
                <fill>
                   <LinearGradient endX="0.2524271844660194" endY="0.2281553398058252" startX="1.0" startY="0.5970873786407768">
                      <stops>
@@ -60,7 +60,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="reportsFormContext" layoutX="366.0" layoutY="10.0" prefHeight="800.0" prefWidth="832.0">
+      <AnchorPane fx:id="reportsFormContext" layoutX="366.0" layoutY="2.0" prefHeight="800.0" prefWidth="832.0">
          <children>
             <Label layoutX="162.0" layoutY="45.0" text="MANAGE REPORTS" underline="true">
                <font>

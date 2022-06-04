@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="ancherPhane" fx:id="manageItemFormContext" prefHeight="800.0" prefWidth="1200.0" stylesheets="@assests/styles/manageItemsForm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.controller.ManageItemsFormController">
+<AnchorPane id="ancherPhane" fx:id="manageItemFormContext" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@assests/styles/manageItemsForm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.controller.ManageItemsFormController">
    <children>
       <Label layoutX="146.0" layoutY="31.0" text="MANAGE ITEMS" underline="true">
          <font>
@@ -37,7 +37,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="800.0" layoutX="891.0" stroke="WHITE" strokeType="INSIDE" width="324.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="800.0" layoutX="876.0" stroke="WHITE" strokeType="INSIDE" width="324.0">
          <fill>
             <LinearGradient endX="1.0" endY="0.9563106796116505" startX="0.5922330097087379" startY="1.0">
                <stops>
@@ -47,7 +47,7 @@
             </LinearGradient>
          </fill>
       </Rectangle>
-      <TableView fx:id="tblItemDetails" layoutX="369.0" layoutY="208.0" prefHeight="479.0" prefWidth="832.0">
+      <TableView fx:id="tblItemDetails" layoutX="320.0" layoutY="208.0" prefHeight="479.0" prefWidth="843.0">
          <columns>
             <TableColumn prefWidth="101.0" text="Item Code" />
             <TableColumn minWidth="8.0" prefWidth="180.0" text="Description" />
